@@ -27,6 +27,12 @@ mkdir -p $output_dir
 
 echo "Downloading libvips and unpacking" | indent
 curl -s https://s3-eu-west-1.amazonaws.com/visup-misc/heroku-buildpack-vips/201402181300.tar.gz | tar xz -C $output_dir
+
+if [ $? != 0 ]; then
+  echo "Error downloading vips and unpacking" | indent
+  exit 1
+fi
+
 cp -r $output_dir/bin/* $BUILD_DIR/bin/
 
 echo "libvips installed" | indent
