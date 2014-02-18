@@ -40,6 +40,7 @@ export WEBP_VERSION=0.4.0
 export ORC_VERSION=0.4.18
 export BUILD_PATH=/tmp
 export OUT_PATH=/app/vendor/vips
+export PKG_CONFIG_PATH=$OUT_PATH/lib/pkgconfig:$PKG_CONFIG_PATH
 
 # Remove out path if already exists
 rm -Rf $OUT_PATH
@@ -66,7 +67,6 @@ make
 # Install orc
 make install
 
-export PKG_CONFIG_PATH=/tmp/orc-$ORC_VERSION:$PKG_CONFIG_PATH
 cd $BUILD_PATH
 
 ###############
@@ -86,7 +86,6 @@ make
 # Install webp
 make install
 
-export PKG_CONFIG_PATH=/tmp/libwebp-$WEBP_VERSION/src:$PKG_CONFIG_PATH
 cd $BUILD_PATH
 
 ###############

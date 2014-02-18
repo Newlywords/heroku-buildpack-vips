@@ -31,7 +31,7 @@ cp -r $output_dir/bin/* $BUILD_DIR/bin/
 
 echo "libvips installed" | indent
 
-echo "Creating new env var in $3"
+echo "Creating new env var in $3" | indent
 
 echo "\$PKG_CONFIG_PATH:$BUILD_DIR/vendor/vips/lib/pkgconfig" > $3/PKG_CONFIG_PATH
 

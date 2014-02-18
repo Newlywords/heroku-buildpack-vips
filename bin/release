@@ -1,7 +1,0 @@
-#!/bin/bash
-
-cat << EOF
----
-config_vars:
-  PKG_CONFIG_PATH: /app/vendor/vips/lib/pkgconfig
-EOF
