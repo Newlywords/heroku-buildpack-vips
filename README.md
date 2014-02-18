@@ -114,7 +114,7 @@ make install
 # Get into output path
 cd $OUT_PATH
 # Create dist package
-tar -cvf output.tar.gz *
+tar -cvzf output.tar.gz *
 
 ###############
 #     FTP     #
