@@ -3,5 +3,5 @@
 cat << EOF
 ---
 config_vars:
-  PKG_CONFIG_PATH: vendor/vips/lib/pkgconfig
+  PKG_CONFIG_PATH: /app/vendor/vips/lib/pkgconfig
 EOF
