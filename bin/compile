@@ -49,7 +49,7 @@ echo "libvips installed" | indent
 
 echo "Creating new env var in $3" | indent
 
-echo "\$PKG_CONFIG_PATH:$BUILD_DIR/vendor/vips/lib/pkgconfig" > $3/PKG_CONFIG_PATH
+echo "\$PKG_CONFIG_PATH:/app/vendor/vips/lib/pkgconfig" > $3/PKG_CONFIG_PATH
 
 echo "Installing vips .profile.d files" | indent
 

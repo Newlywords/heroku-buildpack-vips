@@ -19,6 +19,8 @@ or, if you want to stick with a version:
 https://github.com/alex88/heroku-buildpack-vips.git#7.38.4.0
 ```
 
+PS: You can even use the `ruby-vips` gem ;)
+
 ## Version
 
 Buildpack is tagged with the vips version it uses with the scheme of `vips-mayor`.`vips-minor`.`vips-pl`.`buildpack-pl`
