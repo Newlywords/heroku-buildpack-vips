@@ -15,6 +15,7 @@ arrow() {
 
 BUILD_DIR=$1
 CACHE_DIR=$2
+ENVFILE=$3
 BP_DIR=`cd $(dirname $0); cd ..; pwd`
 
 echo "Installing libvips" | arrow
@@ -29,6 +30,9 @@ curl -s https://s3-eu-west-1.amazonaws.com/visup-misc/heroku-buildpack-vips/2014
 cp -r $output_dir/bin/* $BUILD_DIR/bin/
 
 echo "libvips installed" | indent
+
+echo $3 | indent
+echo `cat $3` | indent
 
 echo "Installing vips .profile.d files" | indent
 
