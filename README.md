@@ -7,7 +7,11 @@ Current vips version is 7.38.4 with webp 0.4.0 and orc 0.4.18
 
 ## Usage
 
-Point the BUILDPACK_URL config or add to your .buildpacks
+Point the BUILDPACK_URL config or add to your .buildpacks this:
+
+```
+https://github.com/alex88/heroku-buildpack-vips.git
+```
 
 ## Version
 
@@ -16,10 +20,6 @@ Buildpack is tagged with the vips version it uses with the scheme of `vips-mayor
 ## Contribute
 
 Open a damn issue or pull request (way appreciated) ;)
-
-```
-https://github.com/alex88/heroku-buildpack-vips.git
-```
 
 ## Build script
 
