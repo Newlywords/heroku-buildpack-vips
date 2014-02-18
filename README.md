@@ -13,6 +13,12 @@ Point the BUILDPACK_URL config or add to your .buildpacks this:
 https://github.com/alex88/heroku-buildpack-vips.git
 ```
 
+or, if you want to stick with a version:
+
+```
+https://github.com/alex88/heroku-buildpack-vips.git#7.38.4.0
+```
+
 ## Version
 
 Buildpack is tagged with the vips version it uses with the scheme of `vips-mayor`.`vips-minor`.`vips-pl`.`buildpack-pl`
