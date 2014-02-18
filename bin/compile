@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+function indent() {
+  c='s/^/       /'
+  case $(uname) in
+    Darwin) sed -l "$c";;
+    *)      sed -u "$c";;
+  esac
+}
+
+arrow() {
+  sed -u 's/^/-----> /'
+}
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+echo "Installing libvips" | arrow
+
+cd $BUILD_DIR
+
+output_dir="${BUILD_DIR}/vendor/vips"
+mkdir -p $output_dir
+
+echo "Downloading libvips" | indent
+curl -s https://s3-eu-west-1.amazonaws.com/visup-misc/heroku-buildpack-vips/201402181300.tar.gz | tar xz -C $output_dir
+
+echo "Unpacking libvips" | indent
+cp -r $output_dir/bin/* $BUILD_DIR/bin/
+
+echo "libvips installed" | indent

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+BUILD_DIR=$1
+
+cat <<EOF
+---
+config_vars:
+  PATH: bin:/usr/local/bin:/usr/bin:/bin
+  PKG_CONFIG_PATH: $BUILD_DIR/vendor/vips/lib/pkgconfig
+EOF

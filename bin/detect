@@ -1,0 +1,4 @@
+#! /bin/bash
+
+# Always use when requested
+exit 0
