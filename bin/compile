@@ -42,7 +42,7 @@ if [ $? != 0 ]; then
   echo "Error downloading vips and unpacking to app dir" | indent
   exit 1
 fi
-
+mkdir -p $BUILD_DIR/bin/
 cp -r $output_dir/bin/* $BUILD_DIR/bin/
 
 echo "libvips installed" | indent
