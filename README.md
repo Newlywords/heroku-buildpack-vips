@@ -3,7 +3,7 @@ heroku-buildpack-vips
 
 Heroku buildpack with [libvips](https://github.com/jcupitt/libvips) installed.
 
-Current vips version is 7.38.4 with webp 0.4.0 and orc 0.4.18
+Current vips version is 7.40.3 with webp 0.4.0, orc 0.4.18 and fftw 3.3.4
 
 ## Usage
 
@@ -37,9 +37,10 @@ This is the script used to build vips on `heroku run bash`
 #!/bin/bash
 
 # Set vips version
-export VIPS_VERSION=7.38.4
+export VIPS_VERSION=7.40.3
 export WEBP_VERSION=0.4.0
 export ORC_VERSION=0.4.18
+export FFTW_VERSION=3.3.4
 export BUILD_PATH=/tmp
 export OUT_PATH=/app/vendor/vips
 export PKG_CONFIG_PATH=$OUT_PATH/lib/pkgconfig:$PKG_CONFIG_PATH
@@ -88,6 +89,27 @@ make
 # Install webp
 make install
 
+# Build path
+cd $BUILD_PATH
+
+###############
+#    FFTW     #
+###############
+
+# Download fftw dependency
+curl http://www.fftw.org/fftw-$FFTW_VERSION.tar.gz -o fftw.tar.gz
+# Unzip
+tar -xvf fftw.tar.gz
+# Get into fftw folder
+cd fftw-$FFTW_VERSION
+# Configure build
+./configure --enable-shared --prefix $OUT_PATH
+# Make fftw
+make
+# Install fftw
+make install
+
+# Build path
 cd $BUILD_PATH
 
 ###############
