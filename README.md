@@ -3,7 +3,7 @@ heroku-buildpack-vips
 
 Heroku buildpack with [libvips](https://github.com/jcupitt/libvips) installed.
 
-Current vips version is 7.40.3 with webp 0.4.0, orc 0.4.18 and fftw 3.3.4
+Current vips version is 7.40.3 with webp 0.4.0, orc 0.4.18, fftw 3.3.4 and libgsf 1.14.30
 
 ## Usage
 
@@ -41,6 +41,7 @@ export VIPS_VERSION=7.40.3
 export WEBP_VERSION=0.4.0
 export ORC_VERSION=0.4.18
 export FFTW_VERSION=3.3.4
+export GETTEXT_VERSION=0.19.1
 export BUILD_PATH=/tmp
 export OUT_PATH=/app/vendor/vips
 export PKG_CONFIG_PATH=$OUT_PATH/lib/pkgconfig:$PKG_CONFIG_PATH
@@ -70,6 +71,7 @@ make
 # Install orc
 make install
 
+# Build path
 cd $BUILD_PATH
 
 ###############
@@ -104,6 +106,123 @@ tar -xvf fftw.tar.gz
 cd fftw-$FFTW_VERSION
 # Configure build
 ./configure --enable-shared --prefix $OUT_PATH
+# Make fftw
+make
+# Install fftw
+make install
+
+# Build path
+cd $BUILD_PATH
+
+###############
+#    CPANM    #
+###############
+
+# Download cpanm
+curl https://raw.githubusercontent.com/miyagawa/cpanminus/master/cpanm -o cpanm
+# Make it executable
+chmod +x cpanm
+# Use local lib
+./cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+# Install xml module (in /app/perl5)
+./cpanm -v XML::Parser
+
+# Build path
+cd $BUILD_PATH
+
+###############
+#  INTLTOOL   #
+###############
+
+# Download intltool dependency
+curl http://ftp.gnome.org/pub/GNOME/sources/intltool/0.40/intltool-0.40.6.tar.gz -o intltool.tar.gz
+# Unzip
+tar -xvf intltool.tar.gz
+# Get into intltool folder
+cd intltool-0.40.6
+# Configure build
+./configure --prefix $OUT_PATH
+# Make intltool
+make
+# Install intltool
+make install
+
+# Build path
+cd $BUILD_PATH
+
+###############
+#   GETTEXT   #
+###############
+
+# Download gettext dependency
+curl http://ftp.gnu.org/pub/gnu/gettext/gettext-$GETTEXT_VERSION.tar.gz -o gettext.tar.gz
+# Unzip
+tar -xvf gettext.tar.gz
+# Get into gettext folder
+cd gettext-$GETTEXT_VERSION
+# Configure build
+./configure --prefix $OUT_PATH
+# Make gettext
+make
+# Install gettext
+make install
+
+# Build path
+cd $BUILD_PATH
+
+###############
+#    LIBFFI   #
+###############
+
+# Download libffi dependency
+curl ftp://sourceware.org/pub/libffi/libffi-3.1.tar.gz -o libffi.tar.gz
+# Unzip
+tar -xvf libffi.tar.gz
+# Get into libffi folder
+cd libffi-3.1
+# Configure build
+./configure --prefix $OUT_PATH
+# Make libffi
+make
+# Install libffi
+make install
+
+# Build path
+cd $BUILD_PATH
+
+###############
+#     GLIB    #
+###############
+
+# Download glib dependency
+curl http://ftp.gnome.org/pub/gnome/sources/glib/2.41/glib-2.41.1.tar.xz -o glib.tar.xz
+# Unzip
+tar -xvf glib.tar.xz
+# Get into glib folder
+cd glib-2.41.1
+# Configure build
+./configure --prefix $OUT_PATH
+# Make glib
+make
+# Install glib
+make install
+
+# Build path
+cd $BUILD_PATH
+
+
+###############
+#     GSF     #
+###############
+
+# Download libgsf dependency
+curl -L http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/libgsf-1.14.30.tar.xz -o libgsf.tar.xz
+# Unzip
+tar -xvf libgsf.tar.xz
+# Get into libgsf folder
+cd libgsf-1.14.30
+# Configure build
+./configure --prefix $OUT_PATH
 # Make fftw
 make
 # Install fftw
