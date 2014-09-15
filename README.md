@@ -3,7 +3,7 @@ heroku-buildpack-vips
 
 Heroku buildpack with [libvips](https://github.com/jcupitt/libvips) installed.
 
-Current vips version is 7.40.3 with webp 0.4.0, orc 0.4.18, fftw 3.3.4 and libgsf 1.14.30
+Current vips version is 7.40.8 with webp 0.4.0, orc 0.4.18, fftw 3.3.4 and libgsf 1.14.30
 
 ## Usage
 
@@ -37,7 +37,7 @@ This is the script used to build vips on `heroku run bash`
 #!/bin/bash
 
 # Set vips version
-export VIPS_VERSION=7.40.3
+export VIPS_VERSION=7.40.8
 export WEBP_VERSION=0.4.0
 export ORC_VERSION=0.4.18
 export FFTW_VERSION=3.3.4
@@ -45,6 +45,7 @@ export GETTEXT_VERSION=0.19.1
 export BUILD_PATH=/tmp
 export OUT_PATH=/app/vendor/vips
 export PKG_CONFIG_PATH=$OUT_PATH/lib/pkgconfig:$PKG_CONFIG_PATH
+export PATH=$PATH:$OUT_PATH/bin
 
 # Remove out path if already exists
 rm -Rf $OUT_PATH
