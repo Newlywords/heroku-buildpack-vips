@@ -3,7 +3,7 @@ heroku-buildpack-vips
 
 Heroku buildpack with [libvips](https://github.com/jcupitt/libvips) installed.
 
-Current vips version is 7.40.8 with webp 0.4.0, orc 0.4.18, fftw 3.3.4 and libgsf 1.14.30
+Current vips version is 7.40.10 with webp 0.4.0, orc 0.4.18, fftw 3.3.4, libgsf 1.14.30 and imagemagick 6.8.9
 
 ## Usage
 
@@ -37,7 +37,7 @@ This is the script used to build vips on `heroku run bash`
 #!/bin/bash
 
 # Set vips version
-export VIPS_VERSION=7.40.8
+export VIPS_VERSION=7.40.10
 export WEBP_VERSION=0.4.0
 export ORC_VERSION=0.4.18
 export FFTW_VERSION=3.3.4
@@ -224,9 +224,49 @@ tar -xvf libgsf.tar.xz
 cd libgsf-1.14.30
 # Configure build
 ./configure --prefix $OUT_PATH
-# Make fftw
+# Make gsf
 make
-# Install fftw
+# Install gsf
+make install
+
+# Build path
+cd $BUILD_PATH
+
+###############
+#   CFITSIO   #
+###############
+
+# Download CFITSIO dependency
+curl -L ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio3370.tar.gz -o cfitsio.tar.gz
+# Unzip
+tar -xvf cfitsio.tar.gz
+# Get into CFITSIO folder
+cd cfitsio
+# Configure build
+./configure --prefix $OUT_PATH
+# Make cfitsio
+make
+# Install cfitsio
+make install
+
+# Build path
+cd $BUILD_PATH
+
+###############
+# Imagemagick #
+###############
+
+# Download Imagemagick dependency
+curl -L http://www.imagemagick.org/download/ImageMagick-6.8.9-8.tar.xz -o ImageMagick.tar.xz
+# Unzip
+tar -xvf ImageMagick.tar.xz
+# Get into Imagemagick folder
+cd ImageMagick-6.8.9-8
+# Configure build
+./configure --prefix $OUT_PATH
+# Make Imagemagick
+make
+# Install Imagemagick
 make install
 
 # Build path
