@@ -3,7 +3,7 @@ heroku-buildpack-vips
 
 Heroku buildpack with [libvips](https://github.com/jcupitt/libvips) installed.
 
-Current vips version is 7.40.10 with webp 0.4.0, orc 0.4.18, fftw 3.3.4, libgsf 1.14.30 and imagemagick 6.8.9
+Current vips version is 7.40.10 with webp 0.4.0, orc 0.4.18, fftw 3.3.4, libgsf 1.14.30, imagemagick 6.8.9 and lcms 2.6
 
 ## Usage
 
@@ -267,6 +267,26 @@ cd ImageMagick-6.8.9-8
 # Make Imagemagick
 make
 # Install Imagemagick
+make install
+
+# Build path
+cd $BUILD_PATH
+
+###############
+#     LCMS    #
+###############
+
+# Download lcms dependency
+curl -L http://downloads.sourceforge.net/project/lcms/lcms/2.6/lcms2-2.6.tar.gz -o lcms.tar.gz
+# Unzip
+tar -xvf lcms.tar.gz
+# Get into lcms folder
+cd lcms2-2.6
+# Configure build
+./configure --prefix $OUT_PATH
+# Make lcms
+make
+# Install lcms
 make install
 
 # Build path
