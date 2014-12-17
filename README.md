@@ -3,7 +3,7 @@ heroku-buildpack-vips
 
 Heroku buildpack with [libvips](https://github.com/jcupitt/libvips) installed.
 
-Current vips version is 7.40.10 with webp 0.4.0, orc 0.4.18, fftw 3.3.4, libgsf 1.14.30, imagemagick 6.8.9 and lcms 2.6
+Current vips version is 7.40.11 with webp 0.4.0, libtiff 4.0.3, orc 0.4.18, fftw 3.3.4, libgsf 1.14.30, imagemagick 6.9.0 and lcms 2.6
 
 ## Usage
 
@@ -37,7 +37,7 @@ This is the script used to build vips on `heroku run bash`
 #!/bin/bash
 
 # Set vips version
-export VIPS_VERSION=7.40.10
+export VIPS_VERSION=7.40.11
 export WEBP_VERSION=0.4.0
 export ORC_VERSION=0.4.18
 export FFTW_VERSION=3.3.4
@@ -45,7 +45,7 @@ export GETTEXT_VERSION=0.19.1
 export BUILD_PATH=/tmp
 export OUT_PATH=/app/vendor/vips
 export PKG_CONFIG_PATH=$OUT_PATH/lib/pkgconfig:$PKG_CONFIG_PATH
-export PATH=$PATH:$OUT_PATH/bin
+export PATH=$OUT_PATH/bin:$PATH
 
 # Remove out path if already exists
 rm -Rf $OUT_PATH
@@ -90,6 +90,26 @@ cd libwebp-$WEBP_VERSION
 # Make libwebp
 make
 # Install webp
+make install
+
+# Build path
+cd $BUILD_PATH
+
+###############
+#   LIBTIFF   #
+###############
+
+# Download tiff dependency
+curl http://download.osgeo.org/libtiff/tiff-4.0.3.tar.gz -o libtiff.tar.gz
+# Unzip
+tar -xvf libtiff.tar.gz
+# Get into libtiff folder
+cd tiff-4.0.3
+# Configure build
+./configure --prefix $OUT_PATH
+# Make libtiff
+make
+# Install libtiff
 make install
 
 # Build path
@@ -257,11 +277,11 @@ cd $BUILD_PATH
 ###############
 
 # Download Imagemagick dependency
-curl -L http://www.imagemagick.org/download/ImageMagick-6.8.9-8.tar.xz -o ImageMagick.tar.xz
+curl -L http://www.imagemagick.org/download/releases/ImageMagick-6.9.0-0.tar.xz -o ImageMagick.tar.xz
 # Unzip
 tar -xvf ImageMagick.tar.xz
 # Get into Imagemagick folder
-cd ImageMagick-6.8.9-8
+cd ImageMagick-6.9.0-0
 # Configure build
 ./configure --prefix $OUT_PATH
 # Make Imagemagick
