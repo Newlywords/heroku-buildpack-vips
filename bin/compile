@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir>
 
+set -e
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+BUILDPACK_NAME=vips
+
 function indent() {
   c='s/^/       /'
   case $(uname) in
@@ -13,47 +19,53 @@ arrow() {
   sed -u 's/^/-----> /'
 }
 
-BUILD_DIR=$1
-CACHE_DIR=$2
-ENVFILE=$3
-BP_DIR=`cd $(dirname $0); cd ..; pwd`
+function vendor() {
+  binary="$1"
+  path="$2"
 
-echo "Installing libvips" | arrow
+  echo "Fetching $binary" | indent
+  mkdir -p $path
+  curl $binary -s -o - | tar xz -C $path -f -
 
-cd $BUILD_DIR
+  if [ -d "$path/bin" ]; then
+    export PATH=$path/bin:$PATH
+  fi
 
-output_dir="${BUILD_DIR}/vendor/vips"
-# Output library also to temp dir accordingly to pkg-config paths
-temp_app_dir="/app/vendor/vips"
-mkdir -p $output_dir
-mkdir -p $temp_app_dir
+  if [ -d "$path/lib/pkgconfig" ]; then
+    # pkg-config should handle compiler options (if used)
+    export PKG_CONFIG_PATH="$path/lib/pkgconfig:$PKG_CONFIG_PATH"
+  fi
 
-echo "Downloading libvips and unpacking" | indent
-curl -s https://s3-eu-west-1.amazonaws.com/visup-misc/heroku-buildpack-vips/201412171200.tar.gz | tar xz -C $output_dir
+  # standard paths
+  export CPPPATH="$path/include:$CPPPATH"
+  export CPATH="$path/include:$CPATH"
+  export LIBRARY_PATH="$path/lib:$LIBRARY_PATH"
 
-if [ $? != 0 ]; then
-  echo "Error downloading vips and unpacking to build dir" | indent
-  exit 1
-fi
+  export LD_LIBRARY_PATH="$path/lib:$LD_LIBRARY_PATH"
+}
 
-curl -s https://s3-eu-west-1.amazonaws.com/visup-misc/heroku-buildpack-vips/201412171200.tar.gz | tar xz -C $temp_app_dir
+echo "Vendoring binaries" | arrow
+vendor "https://s3-eu-west-1.amazonaws.com/visup-misc/heroku-buildpack-vips/201412171200.tar.gz" "$BUILD_DIR/vendor/vips"
 
-if [ $? != 0 ]; then
-  echo "Error downloading vips and unpacking to app dir" | indent
-  exit 1
-fi
-mkdir -p $BUILD_DIR/bin/
-cp -r $output_dir/bin/* $BUILD_DIR/bin/
+echo "Configuring build environment" | arrow
 
-echo "libvips installed" | indent
+cat <<EOF > export
+export PATH="$PATH:\$PATH"
+export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$LD_LIBRARY_PATH"
+export LIBRARY_PATH="\$LIBRARY_PATH:$LIBRARY_PATH"
+export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:$PKG_CONFIG_PATH"
+export CPPPATH="\$CPPPATH:$CPPPATH"
+export CPATH="\$CPATH:$CPATH"
+EOF
 
-echo "Creating new env var in $3" | indent
-
-#echo "\$PKG_CONFIG_PATH:/app/vendor/vips/lib/pkgconfig" > $3/PKG_CONFIG_PATH
-
-echo "Installing vips .profile.d files" | indent
-
+echo "Building runtime environment" | arrow
 mkdir -p $BUILD_DIR/.profile.d
-cp -n $BP_DIR/.profile.d/* $BUILD_DIR/.profile.d/
 
-echo ".profile.d files installed" | indent
+cat <<EOF > $BUILD_DIR/.profile.d/$BUILDPACK_NAME.sh
+export PATH="${PATH//$BUILD_DIR//app}:\$PATH"
+export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:${LD_LIBRARY_PATH//$BUILD_DIR//app}"
+export LIBRARY_PATH="\$LIBRARY_PATH:${LIBRARY_PATH//$BUILD_DIR//app}"
+export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:${PKG_CONFIG_PATH//$BUILD_DIR//app}"
+export CPPPATH="\$CPPPATH:${CPPPATH//$BUILD_DIR//app}"
+export CPATH="\$CPATH:${CPATH//$BUILD_DIR//app}"
+EOF
