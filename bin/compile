@@ -47,13 +47,13 @@ cp -r $output_dir/bin/* $BUILD_DIR/bin/
 
 echo "libvips installed" | indent
 
-#echo "Creating new env var in $3" | indent
+echo "Creating new env var in $3" | indent
 
-echo "\$PKG_CONFIG_PATH:/app/vendor/vips/lib/pkgconfig" > $3/PKG_CONFIG_PATH
+#echo "\$PKG_CONFIG_PATH:/app/vendor/vips/lib/pkgconfig" > $3/PKG_CONFIG_PATH
 
-#echo "Installing vips .profile.d files" | indent
+echo "Installing vips .profile.d files" | indent
 
 mkdir -p $BUILD_DIR/.profile.d
 cp -n $BP_DIR/.profile.d/* $BUILD_DIR/.profile.d/
 
-#echo ".profile.d files installed" | indent
+echo ".profile.d files installed" | indent
