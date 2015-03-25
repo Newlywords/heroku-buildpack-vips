@@ -1,4 +1,4 @@
 #! /bin/bash
 
 # Always use when requested
-exit 0
+echo "vips" && exit 0
