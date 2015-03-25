@@ -47,8 +47,8 @@ function vendor() {
 echo "Vendoring binaries" | arrow
 vendor "https://s3-eu-west-1.amazonaws.com/visup-misc/heroku-buildpack-vips/201412171200.tar.gz" "$BUILD_DIR/vendor/vips"
 
-export CPPPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$CPPPATH"
-export CPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$CPATH"
+export CPPPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:/vendor/vips/lib/glib-2.0/include:$CPPPATH"
+export CPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:/vendor/vips/lib/glib-2.0/include:$CPATH"
 
 echo "Configuring build environment" | arrow
 
