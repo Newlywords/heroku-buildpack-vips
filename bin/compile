@@ -45,7 +45,10 @@ function vendor() {
 }
 
 echo "Vendoring binaries" | arrow
+
 vendor "https://s3-eu-west-1.amazonaws.com/visup-misc/heroku-buildpack-vips/201412171200.tar.gz" "$BUILD_DIR/vendor/vips"
+
+echo "Tweaking glib include paths" | arrow
 
 export CPPPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPPPATH"
 export CPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPATH"
@@ -72,7 +75,3 @@ export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:${PKG_CONFIG_PATH//$BUILD_DIR//app}"
 export CPPPATH="\$CPPPATH:${CPPPATH//$BUILD_DIR//app}"
 export CPATH="\$CPATH:${CPATH//$BUILD_DIR//app}"
 EOF
-
-echo "Env vars" | arrow
-
-cat $BUILD_DIR/.profile.d/$BUILDPACK_NAME.sh
