@@ -46,7 +46,8 @@ function vendor() {
 
 echo "Vendoring binaries" | arrow
 
-vendor "https://s3-eu-west-1.amazonaws.com/visup-misc/heroku-buildpack-vips/201412171200.tar.gz" "$BUILD_DIR/vendor/vips"
+#vendor "https://s3-eu-west-1.amazonaws.com/visup-misc/heroku-buildpack-vips/201412171200.tar.gz" "$BUILD_DIR/vendor/vips"
+vendor "http://void.cc/libtiff-build-0.0.1.tar.gz" "$BUILD_DIR/vendor/vips"
 
 echo "Tweaking glib include paths" | arrow
 
