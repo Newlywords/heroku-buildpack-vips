@@ -5,6 +5,12 @@ Heroku buildpack with [libvips](https://github.com/jcupitt/libvips) installed.
 
 Current vips version is 7.40.11 with webp 0.4.0, libtiff 4.0.3, orc 0.4.18, fftw 3.3.4, libgsf 1.14.30, imagemagick 6.9.0 and lcms 2.6
 
+## About libtiff use
+
+We removed `libtiff.*` from the vips bundle because it's version (5.0) was conflicting with opencv (4.0). Removing `libtiff.*` made it use the user default's libtiff (5.0). Symbol names on the original vips bundle `libtiff.so` are wrong, they have versions appended, which causes the conflict.
+
+The new bundle is available at http://void.cc/libvips-build-0.0.1.tar.gz and is currently used by us.
+
 ## Usage
 
 Point the BUILDPACK_URL config or add to your .buildpacks this:
