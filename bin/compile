@@ -46,7 +46,7 @@ function vendor() {
 
 echo "Vendoring binaries" | arrow
 
-vendor "http://void.cc/libvips-build-0.0.2.tar.gz" "$BUILD_DIR/vendor/vips"
+vendor "https://s3-us-west-2.amazonaws.com/cdn.thegrid.io/caliper/libvips/libvips-build-0.0.2.tar.gz" "$BUILD_DIR/vendor/vips"
 
 echo "Tweaking glib include paths" | arrow
 
