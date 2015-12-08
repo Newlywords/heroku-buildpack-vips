@@ -9,7 +9,7 @@ Current vips version is 7.40.11 with webp 0.4.0, libtiff 4.0.3, orc 0.4.18, fftw
 
 We removed `libtiff.*` from the vips bundle because it's version (5.0) was conflicting with opencv (4.0). Removing `libtiff.*` made it use the user default's libtiff (5.0). Symbol names on the original vips bundle `libtiff.so` are wrong, they have versions appended, which causes the conflict.
 
-The new bundle is available at http://void.cc/libvips-build-0.0.1.tar.gz and is currently used by us.
+The new bundle is available [here](https://s3-us-west-2.amazonaws.com/cdn.thegrid.io/caliper/libvips/libvips-build-0.0.2.tar.gz) and is currently used by us.
 
 ## Usage
 
