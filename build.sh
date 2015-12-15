@@ -247,7 +247,7 @@ tar -xvf ImageMagick.tar.xz
 # Get into Imagemagick folder
 cd ImageMagick-6.9.0-0
 # Configure build
-./configure --prefix $OUT_PATH
+./configure --prefix $OUT_PATH  --with-gcc-arch
 # Make Imagemagick
 make
 # Install Imagemagick
