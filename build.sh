@@ -64,21 +64,21 @@ cd $BUILD_PATH
 #   LIBTIFF   #
 ###############
 
-# Download tiff dependency
-curl http://download.osgeo.org/libtiff/tiff-$TIFF_VERSION.tar.gz -o libtiff.tar.gz
-# Unzip
-tar -xvf libtiff.tar.gz
-# Get into libtiff folder
-cd tiff-$TIFF_VERSION
-# Configure build
-./configure --prefix $OUT_PATH
-# Make libtiff
-make
-# Install libtiff
-make install
-
-# Build path
-cd $BUILD_PATH
+# # Download tiff dependency
+# curl http://download.osgeo.org/libtiff/tiff-$TIFF_VERSION.tar.gz -o libtiff.tar.gz
+# # Unzip
+# tar -xvf libtiff.tar.gz
+# # Get into libtiff folder
+# cd tiff-$TIFF_VERSION
+# # Configure build
+# ./configure --prefix $OUT_PATH
+# # Make libtiff
+# make
+# # Install libtiff
+# make install
+#
+# # Build path
+# cd $BUILD_PATH
 
 ###############
 #    FFTW     #
