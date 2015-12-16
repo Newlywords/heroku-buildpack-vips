@@ -300,8 +300,10 @@ make install
 
 # Get into output path
 cd $OUT_PATH
+# Clean useless files
+rm -rf $OUT_PATH/share/{doc,gtk-doc}
 # Create dist package
-#tar -cvzf output.tar.gz *
+tar -cvzf output.tar.gz *
 
 ###############
 #     FTP     #
