@@ -91,7 +91,7 @@ tar -xvf fftw.tar.gz
 # Get into fftw folder
 cd fftw-$FFTW_VERSION
 # Configure build
-./configure --enable-shared --prefix $OUT_PATH
+./configure --enable-shared --enable-float --prefix $OUT_PATH
 # Make fftw
 make
 # Install fftw
