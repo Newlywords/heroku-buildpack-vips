@@ -25,7 +25,7 @@ function vendor() {
 
   echo "Fetching $binary" | indent
   mkdir -p $path
-  curl $binary -s -o - | tar xj -C $path -f -
+  curl $binary -s -o - | tar xz -C $path -f -
 
   if [ -d "$path/bin" ]; then
     export PATH=$path/bin:$PATH
@@ -46,7 +46,7 @@ function vendor() {
 
 echo "Vendoring binaries" | arrow
 
-vendor "https://s3-us-west-2.amazonaws.com/cdn.thegrid.io/caliper/libvips/libvips-build-0.0.5.tar.bz2" "$BUILD_DIR/vendor/vips"
+vendor "https://s3-us-west-2.amazonaws.com/cdn.thegrid.io/caliper/libvips/libvips-build-0.0.5.tar.gz" "$BUILD_DIR/vendor/vips"
 
 echo "Tweaking glib include paths" | arrow
 
