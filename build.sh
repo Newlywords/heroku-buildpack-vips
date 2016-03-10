@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set vips version
-export VIPS_VERSION=8.2.22
+export VIPS_VERSION=8.2.2
 export WEBP_VERSION=0.4.0
 export ORC_VERSION=0.4.18
 export FFTW_VERSION=3.3.4
