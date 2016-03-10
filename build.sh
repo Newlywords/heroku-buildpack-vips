@@ -260,7 +260,7 @@ function build_imagemagick {
 ###############
 #     LCMS    #
 ###############
-function build_lcms {
+function build_lcms2 {
     # Download lcms dependency
     curl -L http://downloads.sourceforge.net/project/lcms/lcms/2.6/lcms2-2.6.tar.gz -o lcms.tar.gz
     # Unzip
@@ -297,31 +297,15 @@ function build_vips {
 ### Build
 # TODO: separate what is built on Travis and Heroku, minimize by pulling in relevant packages from APT
 cd $BUILD_PATH
-build_orc
-cd $BUILD_PATH
 build_webp
-cd $BUILD_PATH
+# cd $BUILD_PATH
 # build_libtiff # DISABLED
-cd $BUILD_PATH
-build_ffwt
-cd $BUILD_PATH
-build_cpanm
-cd $BUILD_PATH
-build_intltool
-cd $BUILD_PATH
-build_gettext
-cd $BUILD_PATH
-build_libffi
-cd $BUILD_PATH
-build_glib
 cd $BUILD_PATH
 build_gsf
 cd $BUILD_PATH
 build_cftsio
 cd $BUILD_PATH
-build_imagemagick
-cd $BUILD_PATH
-build_lcms
+build_lcms2
 cd $BUILD_PATH
 build_vips
 
