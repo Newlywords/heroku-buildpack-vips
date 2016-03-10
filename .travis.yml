@@ -20,8 +20,6 @@ addons:
     - libexif-dev
     - libgsf-1-dev
     - libblas-dev
-    - libgsl0-dev
-    - libfftw3-dev
     - liblcms2-dev
     - libxml2-dev
     - libpango1.0-dev
