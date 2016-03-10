@@ -301,7 +301,7 @@ build_orc
 cd $BUILD_PATH
 build_webp
 cd $BUILD_PATH
-build_libtiff
+# build_libtiff # DISABLED
 cd $BUILD_PATH
 build_ffwt
 cd $BUILD_PATH
