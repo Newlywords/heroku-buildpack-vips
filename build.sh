@@ -12,6 +12,14 @@ export OUT_PATH=/app/vendor/vips
 export PKG_CONFIG_PATH=$OUT_PATH/lib/pkgconfig:$PKG_CONFIG_PATH
 export PATH=$OUT_PATH/bin:$PATH
 
+# These should be set from the outside. A git version and heroku/travis respectively
+if [ -z "$VERSION" ];
+    VERSION="unknown"
+fi
+if [ -z "$TARGET" ];
+    TARGET="unknown"
+fi
+
 # Remove out path if already exists
 rm -Rf $OUT_PATH
 
@@ -308,10 +316,16 @@ cd $OUT_PATH
 # Clean useless files
 rm -rf $OUT_PATH/share/{doc,gtk-doc}
 # Create dist package
-tar -cvzf output.tar.gz *
+tar -cvzf libvips-$(VERSION)-$(TARGET).tgz *
 
 ###############
 #     FTP     #
 ###############
 
-#curl -T output.tar.gz -u username:password ftp://yourftpsitehere/
+if [ -z "$FTP_PASSWORD" ];
+then
+    echo "FTP_PASSWORD not provided, skipping upload";
+else
+    curl --ftp-create-dirs -T libvips-$(VERSION)-$(TARGET).tgz -u $(FTP_USER):$(FTP_PASSWORD) $(FTP_SERVER)/
+fi
+
