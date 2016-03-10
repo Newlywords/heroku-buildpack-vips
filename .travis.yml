@@ -1,0 +1,36 @@
+language: node_js
+node_js:
+- '4.2'
+sudo: false
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+    - imagemagick
+    - libmagickcore-dev
+    - libcairo2-dev
+    - libgif-dev
+    - libopencv-dev
+    - libjpeg8-dev
+    - libpng12-dev
+    - libwebp-dev
+    - libtiff4-dev
+    - libexif-dev
+    - libgsf-1-dev
+    - libblas-dev
+    - libgsl0-dev
+    - libfftw3-dev
+    - liblcms2-dev
+    - libxml2-dev
+    - libpango1.0-dev
+    - build-essential
+    - unicode-data
+    - automake
+    - gobject-introspection
+    - gtk-doc-tools
+    - libglib2.0-dev
+    - swig
+script:
+- TARGET=travis VERSION=`git decribe --tags` ./build.sh
