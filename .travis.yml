@@ -41,3 +41,5 @@ deploy:
   app: imgflo-dependencies14
   on:
     repo: jonnor/heroku-buildpack-vips
+  run:
+  - TARGET=heroku VERSION=`git describe --tags` ./build.sh
