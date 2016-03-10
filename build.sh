@@ -8,7 +8,7 @@ export FFTW_VERSION=3.3.4
 export TIFF_VERSION=4.0.3
 export GETTEXT_VERSION=0.19.1
 export BUILD_PATH=/tmp
-export OUT_PATH=/app/vendor/vips
+export OUT_PATH=$OUT_DIR/app/vendor/vips
 export PKG_CONFIG_PATH=$OUT_PATH/lib/pkgconfig:$PKG_CONFIG_PATH
 export PATH=$OUT_PATH/bin:$PATH
 
