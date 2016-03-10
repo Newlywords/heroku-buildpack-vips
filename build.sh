@@ -13,10 +13,12 @@ export PKG_CONFIG_PATH=$OUT_PATH/lib/pkgconfig:$PKG_CONFIG_PATH
 export PATH=$OUT_PATH/bin:$PATH
 
 # These should be set from the outside. A git version and heroku/travis respectively
-if [ -z "$VERSION" ];
+if [ -z "$VERSION" ]
+then
     VERSION="unknown"
 fi
-if [ -z "$TARGET" ];
+if [ -z "$TARGET" ]
+then
     TARGET="unknown"
 fi
 
