@@ -318,7 +318,7 @@ cd $OUT_PATH
 # Clean useless files
 rm -rf $OUT_PATH/share/{doc,gtk-doc}
 # Create dist package
-tar -cvzf libvips-$(VERSION)-$(TARGET).tgz *
+tar -cvzf libvips-${VERSION}-${TARGET}.tgz *
 
 ###############
 #     FTP     #
@@ -328,6 +328,6 @@ if [ -z "$FTP_PASSWORD" ];
 then
     echo "FTP_PASSWORD not provided, skipping upload";
 else
-    curl --ftp-create-dirs -T libvips-$(VERSION)-$(TARGET).tgz -u $(FTP_USER):$(FTP_PASSWORD) $(FTP_SERVER)/
+    curl --ftp-create-dirs -T libvips-${VERSION}-${TARGET}.tgz -u ${FTP_USER}:${FTP_PASSWORD} ${FTP_SERVER}/
 fi
 
