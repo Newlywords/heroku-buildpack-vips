@@ -4,7 +4,6 @@
 export VIPS_VERSION=8.2.2
 export WEBP_VERSION=0.4.0
 export ORC_VERSION=0.4.18
-export FFTW_VERSION=3.3.4
 export TIFF_VERSION=4.0.3
 export GETTEXT_VERSION=0.19.1
 export BUILD_PATH=/tmp
@@ -91,30 +90,6 @@ function build_libtiff {
     # Install libtiff
     make install
 }
-
-###############
-#    FFTW     #
-###############
-function build_ffwt {
-    # Download fftw dependency
-    curl http://www.fftw.org/fftw-$FFTW_VERSION.tar.gz -o fftw.tar.gz
-    # Unzip
-    tar -xvf fftw.tar.gz
-    # Get into fftw folder
-    cd fftw-$FFTW_VERSION
-    # Configure build
-    ./configure --enable-shared --prefix $OUT_PATH
-    # Make fftw
-    make
-    # Install fftw
-    make install
-    # Clean and compile/install single precision too
-    make clean
-    ./configure --enable-shared --enable-float --prefix $OUT_PATH
-    make
-    make install
-}
-
 
 ###############
 #    CPANM    #
