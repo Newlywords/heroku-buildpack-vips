@@ -33,4 +33,4 @@ addons:
     - libglib2.0-dev
     - swig
 script:
-- TARGET=travis VERSION=`git decribe --tags` ./build.sh
+- TARGET=travis VERSION=`git describe --tags` ./build.sh
