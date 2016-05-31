@@ -46,7 +46,7 @@ function vendor() {
 
 echo "Vendoring binaries" | arrow
 
-vendor "wget ftp://vps.jonnor.com/imgflo/libvips-0.2.0-heroku.tgz" "$BUILD_DIR/vendor/vips" # FIXME: unharcode version
+vendor "wget ftp://vps.jonnor.com/imgflo/libvips-0.3.0-heroku.tgz" "$BUILD_DIR/vendor/vips" # FIXME: unharcode version
 
 echo "Tweaking glib include paths" | arrow
 
