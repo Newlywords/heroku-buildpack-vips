@@ -1,11 +1,13 @@
 #!/bin/bash
 
 # Set vips version
-export VIPS_VERSION=8.2.2
+export VIPS_VERSION=8.3.1
 export WEBP_VERSION=0.4.0
 export ORC_VERSION=0.4.18
 export TIFF_VERSION=4.0.3
 export GETTEXT_VERSION=0.19.1
+export SVG_VERSION=2.40.15
+export GIF_VERSION=5.1.4
 export BUILD_PATH=/tmp
 export OUT_PATH=$OUT_DIR/app/vendor/vips
 export PKG_CONFIG_PATH=$OUT_PATH/lib/pkgconfig:$PKG_CONFIG_PATH
@@ -213,24 +215,26 @@ function build_cftsio {
     make install
 }
 
-###############
-# Imagemagick #
-###############
-function build_imagemagick {
-    # Download Imagemagick dependency
-    curl -L http://www.imagemagick.org/download/releases/ImageMagick-6.9.0-0.tar.xz -o ImageMagick.tar.xz
-    # Unzip
-    tar -xvf ImageMagick.tar.xz
-    # Get into Imagemagick folder
-    cd ImageMagick-6.9.0-0
-    # Configure build
-    ./configure --prefix $OUT_PATH  --with-gcc-arch
-    # Make Imagemagick
-    make
-    # Install Imagemagick
-    make install
+# SVG 
+function build_svg {
+  curl -L https://download.gnome.org/sources/librsvg/2.40/librsvg-${VERSION_SVG}.tar.xz -o librsvg.tar.xz
+  tar -xvf librsvg.tar.xz
+  cd librsvg-${VERSION_SVG}
+  ./configure --prefix $OUT_PATH --enable-shared --disable-static --disable-dependency-tracking \
+  --disable-introspection --disable-tools
+  make
+  make install
 }
 
+# GIF
+function build_gif {
+  curl -L http://downloads.sourceforge.net/project/giflib/giflib-${VERSION_GIF}.tar.gz -o giflib.tar.gz
+  tar -xvf giflib.tar.gz
+  cd giflib-$VERSION_GIF
+  ./configure --prefix $OUT_PATH --enable-shared --disable-static --disable-dependency-tracking
+  make
+  make install
+}
 
 ###############
 #     LCMS    #
@@ -261,7 +265,9 @@ function build_vips {
     # Get into vips folder
     cd vips-$VIPS_VERSION
     # Configure build and output everything in /tmp/vips
-    ./configure --prefix $OUT_PATH
+    ./configure --prefix $OUT_PATH --enable-shared --disable-static --disable-dependency-tracking \
+  --disable-debug --disable-introspection --without-python --without-fftw \
+  --without-magick --without-pangoft2 --without-ppm --without-analyze --without-radiance \
     # Make
     make
     # install vips
@@ -281,6 +287,10 @@ cd $BUILD_PATH
 build_cftsio
 cd $BUILD_PATH
 build_lcms2
+cd $BUILD_PATH
+build_svg
+cd $BUILD_PATH
+build_gif
 cd $BUILD_PATH
 build_vips
 
