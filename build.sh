@@ -217,21 +217,22 @@ function build_cftsio {
 
 # SVG 
 function build_svg {
-  curl -L https://download.gnome.org/sources/librsvg/2.40/librsvg-${VERSION_SVG}.tar.xz -o librsvg.tar.xz
+  curl -L https://download.gnome.org/sources/librsvg/2.40/librsvg-${SVG_VERSION}.tar.xz -o librsvg.tar.xz
   tar -xvf librsvg.tar.xz
-  cd librsvg-${VERSION_SVG}
-  ./configure --prefix $OUT_PATH --enable-shared --disable-static --disable-dependency-tracking \
-  --disable-introspection --disable-tools
+  cd librsvg-${SVG_VERSION}
+  ./configure --prefix $OUT_PATH --enable-shared --disable-static \
+  --disable-dependency-tracking --disable-introspection --disable-tools
   make
   make install
 }
 
 # GIF
 function build_gif {
-  curl -L http://downloads.sourceforge.net/project/giflib/giflib-${VERSION_GIF}.tar.gz -o giflib.tar.gz
+  curl -L http://downloads.sourceforge.net/project/giflib/giflib-${GIF_VERSION}.tar.gz -o giflib.tar.gz
   tar -xvf giflib.tar.gz
-  cd giflib-$VERSION_GIF
-  ./configure --prefix $OUT_PATH --enable-shared --disable-static --disable-dependency-tracking
+  cd giflib-$GIF_VERSION
+  ./configure --prefix $OUT_PATH --enable-shared --disable-static \
+  --disable-dependency-tracking
   make
   make install
 }
@@ -288,7 +289,7 @@ build_cftsio
 cd $BUILD_PATH
 build_lcms2
 cd $BUILD_PATH
-build_svg
+#build_svg
 cd $BUILD_PATH
 build_gif
 cd $BUILD_PATH
