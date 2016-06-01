@@ -289,7 +289,7 @@ build_cftsio
 cd $BUILD_PATH
 build_lcms2
 cd $BUILD_PATH
-build_svg
+#build_svg
 cd $BUILD_PATH
 build_gif
 cd $BUILD_PATH
