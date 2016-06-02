@@ -8,10 +8,7 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
-    - imagemagick
-    - libmagickcore-dev
     - libcairo2-dev
-    - libgif-dev
     - libopencv-dev
     - libjpeg8-dev
     - libpng12-dev
