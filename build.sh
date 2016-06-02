@@ -269,6 +269,8 @@ function build_vips {
     ./configure --prefix $OUT_PATH --enable-shared --disable-static --disable-dependency-tracking \
   --disable-debug --disable-introspection --without-python --without-fftw \
   --without-magick --without-pangoft2 --without-ppm --without-analyze --without-radiance \
+  --with-giflib-includes=$OUT_PATH/include \
+  --with-giflib-libraries=$OUT_PATH/lib
     # Make
     make
     # install vips
