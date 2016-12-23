@@ -3,7 +3,7 @@
 
 set -e
 
-version=0.3.4
+version=0.4.0
 
 BUILD_DIR=$1
 CACHE_DIR=$2
