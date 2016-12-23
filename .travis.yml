@@ -31,14 +31,14 @@ script:
 - OUT_DIR=`pwd` TARGET=travis VERSION=`git describe --tags` ./build.sh
 deploy:
   provider: heroku
-  api_key:
-    secure: EgnopX+NU76bGBCb7Jv+1FzJrGWsZUw6aEELkEpK7crGThCgvo0jG/17ULEeMFnO30kQwX/Qlg9SWRVGB4h6ySM+75lA705q/TiaJg4KLfS2WWJpZFy1xpVeXPqofUsMPdiUUBULZayLwaKqhdX3mXs6MtELgQvSIfebAn9/eAjZ4+Rc7HfAx/VR4cPeARLyNCvN0iNy3wW3LhWPuCtuVlSOGt0uK6w1hvk6egizARyQ7YFzmqxOUJdnccYrgNtDuyuAmVQmRhH3MN92rH2DLdjWrnFlfoJAgWi3M2HxnKgNtGfqpuckDjkdK4JVZXeGvRM5d0cxXh1yE82yTkz7nHfzYIjSdtU0XbAPH3cRf0uPHg0HUzlSEZ5UoWonyabUdr7s0XM6F2WPLndzCMKhAQD0F0ndnGaOtd1UFGlctNZCw0MEfyoFvNF2sndyaqnVIwF7ILxR8vDujcs4rW5YvckhP/Aez4okDMwOQmIu59JKyfshE/laQGAelqKPi18Rj3rMbiIXLld8+b+ZaggdEJwC/edHy9PO6qoUb9S2oTBqMZk9F+Zx2hfv1+m300Eg+XJLnL8HadyYc/9oj/gdaUEi3OM9u524GruZH3Hc+CcFiu+yNgjSTOc3WTvAWSO4hK89ydKxMAlawf7JNvEB5JufIBvWasqYnL9cWs6Qfao=
-  app: imgflo-dependencies14
+  app: buildpack-stage
   on:
-    repo: jonnor/heroku-buildpack-vips
+    repo: automata/heroku-buildpack-vips
     tags: true
   run:
   - TARGET=heroku VERSION=`git describe --tags` ./build.sh
+  api_key:
+    secure: d0nHKTBKplU/OABAv97Ib81XCtsKDvaTz5nb0vrkKOPu26BXcX8ubD0NOquPb2YwAKXjiCoU3GAjbHHZ3k3eZ0kFIhC6RPBMLA+tH05mMrHZOin6LHE7YH3ik+V6ajM9+v7awSCaFgdRy3qYlvEL22cy5m6hnu6wCTTw9LKtt7E=
 env:
   global:
   - secure: GAGFo+xiGUk3WJ1bVXstBHhwlM8rKBY0ixI6To4GIJMrodcSXMX5M2Qx3IKVeZqz5ogqRqPqmvUqp1j8+8WeM+f7c+qbbflfqpfeVyacG43TM5yhsiyeUILbchlAWdNgwfmrZkvo2NItHonrYaJvbR8w1MRc0WHlt3v0Dy5apFE=
