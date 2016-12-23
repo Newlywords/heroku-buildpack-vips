@@ -3,6 +3,8 @@
 
 set -e
 
+version=0.3.3
+
 BUILD_DIR=$1
 CACHE_DIR=$2
 BUILDPACK_NAME=vips
@@ -46,7 +48,7 @@ function vendor() {
 
 echo "Vendoring binaries" | arrow
 
-vendor "wget ftp://vps.jonnor.com/imgflo/libvips-0.3.2-heroku.tgz" "$BUILD_DIR/vendor/vips" # FIXME: unharcode version
+vendor "wget https://s3-us-west-2.amazonaws.com/caliper-tests/bundles/libvips-$version-heroku.tgz" "$BUILD_DIR/vendor/vips" # FIXME: unharcode version
 
 echo "Tweaking glib include paths" | arrow
 
