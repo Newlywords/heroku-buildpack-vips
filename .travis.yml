@@ -33,7 +33,7 @@ deploy:
   provider: heroku
   app: buildpack-stage
   on:
-    repo: automata/heroku-buildpack-vips
+    repo: the-grid/heroku-buildpack-vips
     tags: true
   run:
   - TARGET=heroku VERSION=`git describe --tags` ./build.sh
