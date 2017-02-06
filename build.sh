@@ -6,7 +6,7 @@ export WEBP_VERSION=0.6.0
 export ORC_VERSION=0.4.18
 export TIFF_VERSION=4.0.3
 export GETTEXT_VERSION=0.19.1
-export SVG_VERSION=2.40.15
+export SVG_VERSION=2.36.1
 export GIF_VERSION=5.1.4
 export BUILD_PATH=/tmp
 export OUT_PATH=$OUT_DIR/app/vendor/vips
@@ -239,7 +239,7 @@ function build_cftsio {
 
 # SVG 
 function build_svg {
-  curl -L https://download.gnome.org/sources/librsvg/2.40/librsvg-${SVG_VERSION}.tar.xz -o librsvg.tar.xz
+  curl -L https://download.gnome.org/sources/librsvg/2.36/librsvg-${SVG_VERSION}.tar.xz -o librsvg.tar.xz
   tar -xvf librsvg.tar.xz
   cd librsvg-${SVG_VERSION}
   ./configure --prefix $OUT_PATH --enable-shared --disable-static \
