@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set vips version
-export VIPS_VERSION=8.3.1
+export VIPS_VERSION=8.4.5
 export WEBP_VERSION=0.4.0
 export ORC_VERSION=0.4.18
 export TIFF_VERSION=4.0.3
@@ -313,12 +313,11 @@ build_cftsio
 cd $BUILD_PATH
 build_lcms2
 cd $BUILD_PATH
-#build_svg
+build_svg
 cd $BUILD_PATH
 build_gif
 cd $BUILD_PATH
 build_vips
-
 
 ###############
 #    Output   #
