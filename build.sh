@@ -2,7 +2,7 @@
 
 # Set vips version
 export VIPS_VERSION=8.4.5
-export WEBP_VERSION=0.4.0
+export WEBP_VERSION=0.6.0
 export ORC_VERSION=0.4.18
 export TIFF_VERSION=4.0.3
 export GETTEXT_VERSION=0.19.1
@@ -76,7 +76,7 @@ function build_orc {
 ###############
 function build_webp {
     # Download webp dependency
-    curl https://webp.googlecode.com/files/libwebp-$WEBP_VERSION.tar.gz -o libwebp.tar.gz
+    curl https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-$WEBP_VERSION.tar.gz -o libwebp.tar.gz
     # Unzip
     tar -xvf libwebp.tar.gz
     # Get into webp folder
