@@ -6,9 +6,10 @@ export WEBP_VERSION=0.6.0
 export ORC_VERSION=0.4.18
 export TIFF_VERSION=4.0.3
 export GETTEXT_VERSION=0.19.1
-export SVG_VERSION=2.36.1
+export SVG_VERSION=2.34.0
 export GIF_VERSION=5.1.4
 export CROCO_VERSION=0.6.0
+export XML_VERSION=2.9.4
 export BUILD_PATH=/tmp
 export OUT_PATH=$OUT_DIR/app/vendor/vips
 export PKG_CONFIG_PATH=$OUT_PATH/lib/pkgconfig:$PKG_CONFIG_PATH
@@ -240,11 +241,20 @@ function build_cftsio {
 
 # SVG 
 function build_svg {
-  curl -L https://download.gnome.org/sources/librsvg/2.36/librsvg-${SVG_VERSION}.tar.xz -o librsvg.tar.xz
-  tar -xvf librsvg.tar.xz
+  curl -L https://download.gnome.org/sources/librsvg/2.34/librsvg-${SVG_VERSION}.tar.gz -o librsvg.tar.gz
+  tar -xvf librsvg.tar.gz
   cd librsvg-${SVG_VERSION}
   ./configure --prefix $OUT_PATH --enable-shared --disable-static \
   --disable-dependency-tracking --disable-introspection --disable-tools
+  make
+  make install
+}
+
+function build_xml {
+  curl -L http://xmlsoft.org/sources/libxml2-${XML_VERSION}.tar.gz -o libxml2.tar.gz
+  tar -xvf libxml2.tar.gz
+  cd libxml2-${XML_VERSION}
+  ./configure --prefix $OUT_PATH --disable-static
   make
   make install
 }
@@ -322,8 +332,10 @@ cd $BUILD_PATH
 build_cftsio
 cd $BUILD_PATH
 build_lcms2
-cd $BUILD_PATH
-build_croco
+#cd $BUILD_PATH
+#build_xml
+#cd $BUILD_PATH
+#build_croco
 cd $BUILD_PATH
 build_svg
 cd $BUILD_PATH
