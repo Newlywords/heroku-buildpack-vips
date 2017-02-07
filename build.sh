@@ -8,6 +8,7 @@ export TIFF_VERSION=4.0.3
 export GETTEXT_VERSION=0.19.1
 export SVG_VERSION=2.36.1
 export GIF_VERSION=5.1.4
+export CROCO_VERSION=0.6.0
 export BUILD_PATH=/tmp
 export OUT_PATH=$OUT_DIR/app/vendor/vips
 export PKG_CONFIG_PATH=$OUT_PATH/lib/pkgconfig:$PKG_CONFIG_PATH
@@ -248,6 +249,15 @@ function build_svg {
   make install
 }
 
+function build_croco {
+  curl -L http://ftp.gnome.org/pub/GNOME/sources/libcroco/0.6/libcroco-${CROCO_VERSION}.tar.gz -o libcroco.tar.gz
+  tar -xvf libcroco.tar.gz
+  cd libcroco-${CROCO_VERSION}
+  ./configure --prefix $OUT_PATH --disable-static
+  make
+  make install
+}
+
 # GIF
 function build_gif {
   curl -L http://downloads.sourceforge.net/project/giflib/giflib-${GIF_VERSION}.tar.gz -o giflib.tar.gz
@@ -312,6 +322,8 @@ cd $BUILD_PATH
 build_cftsio
 cd $BUILD_PATH
 build_lcms2
+cd $BUILD_PATH
+build_croco
 cd $BUILD_PATH
 build_svg
 cd $BUILD_PATH
