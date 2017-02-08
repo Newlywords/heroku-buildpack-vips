@@ -319,6 +319,8 @@ function build_vips {
     make install
 }
 
+echo "PKGCONFIG"
+pkg-config --cflags glib-2.0
 
 ### Build
 # TODO: separate what is built on Travis and Heroku, minimize by pulling in relevant packages from APT
