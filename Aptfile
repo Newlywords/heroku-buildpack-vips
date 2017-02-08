@@ -2,5 +2,7 @@ intltool
 libglib2.0-0
 libglib2.0-dev
 libpango-1.0-0
+libpangoft2-1.0-0
 libcairo2
 libcairo2-dev
+libpangocairo-1.0-0
