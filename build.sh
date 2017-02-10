@@ -321,6 +321,10 @@ function build_vips {
 
 echo "PKGCONFIG"
 pkg-config --cflags glib-2.0
+echo "LOCATE GLIB"
+ls /usr/lib
+ls /usr/include
+ls /usr/include/glib-2.0
 
 ### Build
 # TODO: separate what is built on Travis and Heroku, minimize by pulling in relevant packages from APT
@@ -338,8 +342,8 @@ build_lcms2
 #build_xml
 #cd $BUILD_PATH
 #build_croco
-cd $BUILD_PATH
-build_svg
+#cd $BUILD_PATH
+#build_svg
 cd $BUILD_PATH
 build_gif
 cd $BUILD_PATH
