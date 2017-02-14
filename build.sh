@@ -3,11 +3,11 @@
 # Set vips version
 export VIPS_VERSION=8.4.5
 export WEBP_VERSION=0.6.0
+export GIF_VERSION=5.1.4
 export ORC_VERSION=0.4.18
 export TIFF_VERSION=4.0.3
 export GETTEXT_VERSION=0.19.1
 export SVG_VERSION=2.34.0
-export GIF_VERSION=5.1.4
 export CROCO_VERSION=0.6.0
 export XML_VERSION=2.9.4
 export BUILD_PATH=/tmp
@@ -80,7 +80,7 @@ function build_webp {
     # Download webp dependency
     curl https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-$WEBP_VERSION.tar.gz -o libwebp.tar.gz
     # Unzip
-    tar -xvf libwebp.tar.gz
+    tar -xf libwebp.tar.gz
     # Get into webp folder
     cd libwebp-$WEBP_VERSION
     # Configure build
@@ -90,11 +90,6 @@ function build_webp {
     # Install webp
     make install
 }
-
-# Build path
-cd $BUILD_PATH
-
-
 
 # Build path
 cd $BUILD_PATH
@@ -192,7 +187,7 @@ function build_glib {
     # Download glib dependency
     curl http://ftp.gnome.org/pub/gnome/sources/glib/2.41/glib-2.41.1.tar.xz -o glib.tar.xz
     # Unzip
-    tar -xvf glib.tar.xz
+    tar -xf glib.tar.xz
     # Get into glib folder
     cd glib-2.41.1
     # Configure build
@@ -210,7 +205,7 @@ function build_gsf {
     # Download libgsf dependency
     curl -L http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/libgsf-1.14.30.tar.xz -o libgsf.tar.xz
     # Unzip
-    tar -xvf libgsf.tar.xz
+    tar -xf libgsf.tar.xz
     # Get into libgsf folder
     cd libgsf-1.14.30
     # Configure build
@@ -228,7 +223,7 @@ function build_cftsio {
     # Download CFITSIO dependency
     curl -L ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio3370.tar.gz -o cfitsio.tar.gz
     # Unzip
-    tar -xvf cfitsio.tar.gz
+    tar -xf cfitsio.tar.gz
     # Get into CFITSIO folder
     cd cfitsio
     # Configure build
@@ -271,7 +266,7 @@ function build_croco {
 # GIF
 function build_gif {
   curl -L http://downloads.sourceforge.net/project/giflib/giflib-${GIF_VERSION}.tar.gz -o giflib.tar.gz
-  tar -xvf giflib.tar.gz
+  tar -xf giflib.tar.gz
   cd giflib-$GIF_VERSION
   ./configure --prefix $OUT_PATH --enable-shared --disable-static \
   --disable-dependency-tracking
@@ -286,7 +281,7 @@ function build_lcms2 {
     # Download lcms dependency
     curl -L http://downloads.sourceforge.net/project/lcms/lcms/2.6/lcms2-2.6.tar.gz -o lcms.tar.gz
     # Unzip
-    tar -xvf lcms.tar.gz
+    tar -xf lcms.tar.gz
     # Get into lcms folder
     cd lcms2-2.6
     # Configure build
@@ -304,7 +299,7 @@ function build_vips {
     # Download vips runtime
     curl http://www.vips.ecs.soton.ac.uk/supported/current/vips-$VIPS_VERSION.tar.gz -o vips.tar.gz
     # Unzip
-    tar -xvf vips.tar.gz
+    tar -xf vips.tar.gz
     # Get into vips folder
     cd vips-$VIPS_VERSION
     # Configure build and output everything in /tmp/vips
@@ -319,31 +314,12 @@ function build_vips {
     make install
 }
 
-echo "PKGCONFIG"
-pkg-config --cflags glib-2.0
-echo "LOCATE GLIB"
-ls /usr/lib
-ls /usr/include
-ls /usr/include/glib-2.0
-
 ### Build
 # TODO: separate what is built on Travis and Heroku, minimize by pulling in relevant packages from APT
 cd $BUILD_PATH
 build_webp
-# cd $BUILD_PATH
-# build_libtiff # DISABLED
-cd $BUILD_PATH
-build_gsf
 cd $BUILD_PATH
 build_cftsio
-cd $BUILD_PATH
-build_lcms2
-#cd $BUILD_PATH
-#build_xml
-#cd $BUILD_PATH
-#build_croco
-#cd $BUILD_PATH
-#build_svg
 cd $BUILD_PATH
 build_gif
 cd $BUILD_PATH

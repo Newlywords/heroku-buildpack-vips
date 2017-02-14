@@ -15,7 +15,6 @@ addons:
     - libwebp-dev
     - libtiff4-dev
     - libexif-dev
-    - libgsf-1-dev
     - libblas-dev
     - liblcms2-dev
     - libxml2-dev
