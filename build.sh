@@ -4,12 +4,7 @@
 export VIPS_VERSION=8.4.5
 export WEBP_VERSION=0.6.0
 export GIF_VERSION=5.1.4
-export ORC_VERSION=0.4.18
-export TIFF_VERSION=4.0.3
-export GETTEXT_VERSION=0.19.1
-export SVG_VERSION=2.34.0
-export CROCO_VERSION=0.6.0
-export XML_VERSION=2.9.4
+
 export BUILD_PATH=/tmp
 export OUT_PATH=$OUT_DIR/app/vendor/vips
 export PKG_CONFIG_PATH=$OUT_PATH/lib/pkgconfig:$PKG_CONFIG_PATH
@@ -54,26 +49,6 @@ rm -Rf $OUT_PATH
 cd $BUILD_PATH
 
 ###############
-#     Orc     #
-###############
-function build_orc {
-    # Download orc dependency
-    curl http://cgit.freedesktop.org/gstreamer/orc/snapshot/orc-$ORC_VERSION.tar.gz -o orc.tar.gz
-    # Unzip
-    tar -xvf orc.tar.gz
-    # Get into orc folder
-    cd orc-$ORC_VERSION
-    # Configure
-    ./autogen.sh
-    # Configure build
-    ./configure --prefix $OUT_PATH
-    # Make orc
-    make
-    # Install orc
-    make install
-}
-
-###############
 #     WebP    #
 ###############
 function build_webp {
@@ -88,131 +63,6 @@ function build_webp {
     # Make libwebp
     make
     # Install webp
-    make install
-}
-
-# Build path
-cd $BUILD_PATH
-
-###############
-#   LIBTIFF   #
-###############
-function build_libtiff {
-    # Download tiff dependency
-    curl http://download.osgeo.org/libtiff/tiff-$TIFF_VERSION.tar.gz -o libtiff.tar.gz
-    # Unzip
-    tar -xvf libtiff.tar.gz
-    # Get into libtiff folder
-    cd tiff-$TIFF_VERSION
-    # Configure build
-    ./configure --prefix $OUT_PATH
-    # Make libtiff
-    make
-    # Install libtiff
-    make install
-}
-
-###############
-#    CPANM    #
-###############
-function build_cpanm {
-    # Download cpanm
-    curl https://raw.githubusercontent.com/miyagawa/cpanminus/master/cpanm -o cpanm
-    # Make it executable
-    chmod +x cpanm
-    # Use local lib
-    ./cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
-    # Install xml module (in /app/perl5)
-    ./cpanm -v XML::Parser
-}
-
-###############
-#  INTLTOOL   #
-###############
-function build_intltool {
-    # Download intltool dependency
-    curl http://ftp.gnome.org/pub/GNOME/sources/intltool/0.40/intltool-0.40.6.tar.gz -o intltool.tar.gz
-    # Unzip
-    tar -xvf intltool.tar.gz
-    # Get into intltool folder
-    cd intltool-0.40.6
-    # Configure build
-    ./configure --prefix $OUT_PATH
-    # Make intltool
-    make
-    # Install intltool
-    make install
-}
-
-###############
-#   GETTEXT   #
-###############
-function build_gettext {
-    # Download gettext dependency
-    curl http://ftp.gnu.org/pub/gnu/gettext/gettext-$GETTEXT_VERSION.tar.gz -o gettext.tar.gz
-    # Unzip
-    tar -xvf gettext.tar.gz
-    # Get into gettext folder
-    cd gettext-$GETTEXT_VERSION
-    # Configure build
-    ./configure --prefix $OUT_PATH
-    # Make gettext
-    make
-    # Install gettext
-    make install
-}
-
-###############
-#    LIBFFI   #
-###############
-function build_libffi {
-    # Download libffi dependency
-    curl ftp://sourceware.org/pub/libffi/libffi-3.1.tar.gz -o libffi.tar.gz
-    # Unzip
-    tar -xvf libffi.tar.gz
-    # Get into libffi folder
-    cd libffi-3.1
-    # Configure build
-    ./configure --prefix $OUT_PATH
-    # Make libffi
-    make
-    # Install libffi
-    make install
-}
-
-###############
-#     GLIB    #
-###############
-function build_glib {
-    # Download glib dependency
-    curl http://ftp.gnome.org/pub/gnome/sources/glib/2.41/glib-2.41.1.tar.xz -o glib.tar.xz
-    # Unzip
-    tar -xf glib.tar.xz
-    # Get into glib folder
-    cd glib-2.41.1
-    # Configure build
-    ./configure --prefix $OUT_PATH
-    # Make glib
-    make
-    # Install glib
-    make install
-}
-
-###############
-#     GSF     #
-###############
-function build_gsf {
-    # Download libgsf dependency
-    curl -L http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/libgsf-1.14.30.tar.xz -o libgsf.tar.xz
-    # Unzip
-    tar -xf libgsf.tar.xz
-    # Get into libgsf folder
-    cd libgsf-1.14.30
-    # Configure build
-    ./configure --prefix $OUT_PATH
-    # Make gsf
-    make
-    # Install gsf
     make install
 }
 
@@ -234,36 +84,9 @@ function build_cftsio {
     make install
 }
 
-# SVG 
-function build_svg {
-  curl -L https://download.gnome.org/sources/librsvg/2.34/librsvg-${SVG_VERSION}.tar.gz -o librsvg.tar.gz
-  tar -xvf librsvg.tar.gz
-  cd librsvg-${SVG_VERSION}
-  ./configure --prefix $OUT_PATH --enable-shared --disable-static \
-  --disable-dependency-tracking --disable-introspection --disable-tools
-  make
-  make install
-}
-
-function build_xml {
-  curl -L http://xmlsoft.org/sources/libxml2-${XML_VERSION}.tar.gz -o libxml2.tar.gz
-  tar -xvf libxml2.tar.gz
-  cd libxml2-${XML_VERSION}
-  ./configure --prefix $OUT_PATH --disable-static
-  make
-  make install
-}
-
-function build_croco {
-  curl -L http://ftp.gnome.org/pub/GNOME/sources/libcroco/0.6/libcroco-${CROCO_VERSION}.tar.gz -o libcroco.tar.gz
-  tar -xvf libcroco.tar.gz
-  cd libcroco-${CROCO_VERSION}
-  ./configure --prefix $OUT_PATH --disable-static
-  make
-  make install
-}
-
-# GIF
+###############
+#     GIF     #
+###############
 function build_gif {
   curl -L http://downloads.sourceforge.net/project/giflib/giflib-${GIF_VERSION}.tar.gz -o giflib.tar.gz
   tar -xf giflib.tar.gz
@@ -272,24 +95,6 @@ function build_gif {
   --disable-dependency-tracking
   make
   make install
-}
-
-###############
-#     LCMS    #
-###############
-function build_lcms2 {
-    # Download lcms dependency
-    curl -L http://downloads.sourceforge.net/project/lcms/lcms/2.6/lcms2-2.6.tar.gz -o lcms.tar.gz
-    # Unzip
-    tar -xf lcms.tar.gz
-    # Get into lcms folder
-    cd lcms2-2.6
-    # Configure build
-    ./configure --prefix $OUT_PATH
-    # Make lcms
-    make
-    # Install lcms
-    make install
 }
 
 ###############
@@ -315,7 +120,6 @@ function build_vips {
 }
 
 ### Build
-# TODO: separate what is built on Travis and Heroku, minimize by pulling in relevant packages from APT
 cd $BUILD_PATH
 build_webp
 cd $BUILD_PATH
