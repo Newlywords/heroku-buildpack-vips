@@ -3,7 +3,7 @@
 
 set -e
 
-version=0.4.0
+version=8.5.8
 
 BUILD_DIR=$1
 CACHE_DIR=$2
@@ -48,7 +48,7 @@ function vendor() {
 
 echo "Vendoring binaries" | arrow
 
-vendor "wget https://s3-us-west-2.amazonaws.com/caliper-tests/bundles/libvips-$version-heroku.tgz" "$BUILD_DIR/vendor/vips" # FIXME: unharcode version
+vendor "wget https://s3-us-east-1.amazonaws.com/kespry-packages/vips/$STACK/libvips-$version.tgz" "$BUILD_DIR/vendor/vips" # FIXME: unharcode version
 
 echo "Tweaking glib include paths" | arrow
 
