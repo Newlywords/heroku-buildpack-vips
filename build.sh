@@ -1,8 +1,10 @@
 #!/bin/bash
 
+set -e
+
 # Set vips version
-export VIPS_VERSION=8.3.1
-export WEBP_VERSION=0.4.0
+export VIPS_VERSION=8.5.8
+export WEBP_VERSION=0.6.0
 export ORC_VERSION=0.4.18
 export TIFF_VERSION=4.0.3
 export GETTEXT_VERSION=0.19.1
@@ -76,7 +78,7 @@ function build_orc {
 ###############
 function build_webp {
     # Download webp dependency
-    curl https://webp.googlecode.com/files/libwebp-$WEBP_VERSION.tar.gz -o libwebp.tar.gz
+    curl https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-$WEBP_VERSION.tar.gz -o libwebp.tar.gz
     # Unzip
     tar -xvf libwebp.tar.gz
     # Get into webp folder
@@ -188,7 +190,7 @@ function build_libffi {
 ###############
 function build_glib {
     # Download glib dependency
-    curl http://ftp.gnome.org/pub/gnome/sources/glib/2.41/glib-2.41.1.tar.xz -o glib.tar.xz
+    curl -L http://ftp.gnome.org/pub/gnome/sources/glib/2.41/glib-2.41.1.tar.xz -o glib.tar.xz
     # Unzip
     tar -xvf glib.tar.xz
     # Get into glib folder
@@ -198,6 +200,25 @@ function build_glib {
     # Make glib
     make
     # Install glib
+    make install
+}
+
+###############
+#     Intltool     #
+###############
+function build_intltool {
+    cpan install XML::Parser
+    # Download libgsf dependency
+    curl -L https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz -o intltool.tar.gz
+    # Unzip
+    tar -xvf intltool.tar.gz
+    # Get into libgsf folder
+    cd intltool-0.51.0
+    # Configure build
+    ./configure --prefix $OUT_PATH
+    # Make gsf
+    make
+    # Install gsf
     make install
 }
 
@@ -237,7 +258,7 @@ function build_cftsio {
     make install
 }
 
-# SVG 
+# SVG
 function build_svg {
   curl -L https://download.gnome.org/sources/librsvg/2.40/librsvg-${SVG_VERSION}.tar.xz -o librsvg.tar.xz
   tar -xvf librsvg.tar.xz
@@ -250,8 +271,8 @@ function build_svg {
 
 # GIF
 function build_gif {
-  curl -L http://downloads.sourceforge.net/project/giflib/giflib-${GIF_VERSION}.tar.gz -o giflib.tar.gz
-  tar -xvf giflib.tar.gz
+  curl -L http://downloads.sourceforge.net/project/giflib/giflib-${GIF_VERSION}.tar.bz2 -o giflib.tar.bz2
+  tar -xvf giflib.tar.bz2
   cd giflib-$GIF_VERSION
   ./configure --prefix $OUT_PATH --enable-shared --disable-static \
   --disable-dependency-tracking
@@ -282,7 +303,7 @@ function build_lcms2 {
 ###############
 function build_vips {
     # Download vips runtime
-    curl http://www.vips.ecs.soton.ac.uk/supported/current/vips-$VIPS_VERSION.tar.gz -o vips.tar.gz
+    curl -L https://github.com/jcupitt/libvips/releases/download/v$VIPS_VERSION/vips-$VIPS_VERSION.tar.gz -o vips.tar.gz
     # Unzip
     tar -xvf vips.tar.gz
     # Get into vips folder
@@ -306,6 +327,8 @@ cd $BUILD_PATH
 build_webp
 # cd $BUILD_PATH
 # build_libtiff # DISABLED
+cd $BUILD_PATH
+build_glib
 cd $BUILD_PATH
 build_gsf
 cd $BUILD_PATH
@@ -340,4 +363,3 @@ then
 else
     putS3 "libvips-${VERSION}-${TARGET}.tgz" "/bundles/" $AMAZON_API_ID $AMAZON_API_TOKEN $AMAZON_API_BUCKET
 fi
-
