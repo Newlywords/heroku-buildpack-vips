@@ -3,7 +3,7 @@
 
 set -e
 
-version=8.5.8
+version=8.6.2
 
 BUILD_DIR=$1
 CACHE_DIR=$2
