@@ -16,7 +16,7 @@ The new bundle is available [here](https://s3-us-west-2.amazonaws.com/cdn.thegri
 Point the `BUILDPACK_URL` config or add to your `.buildpacks` this:
 
 ```
-https://github.com/automata/heroku-buildpack-vips.git
+https://github.com/wwarne/heroku-buildpack-vips
 ```
 
 ## Build script
