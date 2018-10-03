@@ -58,9 +58,9 @@ cd $BUILD_PATH
 ###############
 function build_orc {
     # Download orc dependency
-    curl http://cgit.freedesktop.org/gstreamer/orc/snapshot/orc-$ORC_VERSION.tar.gz -o orc.tar.gz
+    curl http://cgit.freedesktop.org/gstreamer/orc/snapshot/orc-$ORC_VERSION.tar.gz -o orc-$ORC_VERSION.tar.gz
     # Unzip
-    tar -xvf orc.tar.gz
+    tar -xvf orc-$ORC_VERSION.tar.gz
     # Get into orc folder
     cd orc-$ORC_VERSION
     # Configure
@@ -78,9 +78,9 @@ function build_orc {
 ###############
 function build_webp {
     # Download webp dependency
-    curl https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-$WEBP_VERSION.tar.gz -o libwebp.tar.gz
+    curl https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-$WEBP_VERSION.tar.gz -o libwebp-$WEBP_VERSION.tar.gz
     # Unzip
-    tar -xvf libwebp.tar.gz
+    tar -xvf libwebp-$WEBP_VERSION.tar.gz
     # Get into webp folder
     cd libwebp-$WEBP_VERSION
     # Configure build
@@ -104,9 +104,9 @@ cd $BUILD_PATH
 ###############
 function build_libtiff {
     # Download tiff dependency
-    curl http://download.osgeo.org/libtiff/tiff-$TIFF_VERSION.tar.gz -o libtiff.tar.gz
+    curl http://download.osgeo.org/libtiff/tiff-$TIFF_VERSION.tar.gz -o tiff-$TIFF_VERSION.tar.gz
     # Unzip
-    tar -xvf libtiff.tar.gz
+    tar -xvf tiff-$TIFF_VERSION.tar.gz
     # Get into libtiff folder
     cd tiff-$TIFF_VERSION
     # Configure build
@@ -136,9 +136,9 @@ function build_cpanm {
 ###############
 function build_intltool {
     # Download intltool dependency
-    curl http://ftp.gnome.org/pub/GNOME/sources/intltool/0.40/intltool-0.40.6.tar.gz -o intltool.tar.gz
+    curl http://ftp.gnome.org/pub/GNOME/sources/intltool/0.40/intltool-0.40.6.tar.gz -o intltool-0.40.6.tar.gz
     # Unzip
-    tar -xvf intltool.tar.gz
+    tar -xvf intltool-0.40.6.tar.gz
     # Get into intltool folder
     cd intltool-0.40.6
     # Configure build
@@ -154,9 +154,9 @@ function build_intltool {
 ###############
 function build_gettext {
     # Download gettext dependency
-    curl http://ftp.gnu.org/pub/gnu/gettext/gettext-$GETTEXT_VERSION.tar.gz -o gettext.tar.gz
+    curl http://ftp.gnu.org/pub/gnu/gettext/gettext-$GETTEXT_VERSION.tar.gz -o gettext-$GETTEXT_VERSION.tar.gz
     # Unzip
-    tar -xvf gettext.tar.gz
+    tar -xvf gettext-$GETTEXT_VERSION.tar.gz
     # Get into gettext folder
     cd gettext-$GETTEXT_VERSION
     # Configure build
@@ -172,9 +172,9 @@ function build_gettext {
 ###############
 function build_libffi {
     # Download libffi dependency
-    curl ftp://sourceware.org/pub/libffi/libffi-3.1.tar.gz -o libffi.tar.gz
+    curl ftp://sourceware.org/pub/libffi/libffi-3.1.tar.gz -o libffi-3.1.tar.gz
     # Unzip
-    tar -xvf libffi.tar.gz
+    tar -xvf libffi-3.1.tar.gz
     # Get into libffi folder
     cd libffi-3.1
     # Configure build
@@ -190,9 +190,9 @@ function build_libffi {
 ###############
 function build_glib {
     # Download glib dependency
-    curl -L http://ftp.gnome.org/pub/gnome/sources/glib/2.41/glib-2.41.1.tar.xz -o glib.tar.xz
+    curl -L http://ftp.gnome.org/pub/gnome/sources/glib/2.41/glib-2.41.1.tar.xz -o glib-2.41.1.tar.xz
     # Unzip
-    tar -xvf glib.tar.xz
+    tar -xvf glib-2.41.1.tar.xz
     # Get into glib folder
     cd glib-2.41.1
     # Configure build
@@ -209,7 +209,7 @@ function build_glib {
 function build_intltool {
     cpan install XML::Parser
     # Download libgsf dependency
-    curl -L https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz -o intltool.tar.gz
+    curl -L https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz -o intltool-0.51.0.tar.gz
     # Unzip
     tar -xvf intltool.tar.gz
     # Get into libgsf folder
@@ -227,9 +227,9 @@ function build_intltool {
 ###############
 function build_gsf {
     # Download libgsf dependency
-    curl -L http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/libgsf-1.14.30.tar.xz -o libgsf.tar.xz
+    curl -L http://ftp.gnome.org/pub/GNOME/sources/libgsf/1.14/libgsf-1.14.30.tar.xz -o libgsf-1.14.30.tar.xz
     # Unzip
-    tar -xvf libgsf.tar.xz
+    tar -xvf libgsf-1.14.30.tar.xz
     # Get into libgsf folder
     cd libgsf-1.14.30
     # Configure build
@@ -245,9 +245,9 @@ function build_gsf {
 ###############
 function build_cftsio {
     # Download CFITSIO dependency
-    curl -L ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio3370.tar.gz -o cfitsio.tar.gz
+    curl -L ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio3370.tar.gz -o cfitsio3370.tar.gz
     # Unzip
-    tar -xvf cfitsio.tar.gz
+    tar -xvf cfitsio3370.tar.gz
     # Get into CFITSIO folder
     cd cfitsio
     # Configure build
@@ -260,8 +260,8 @@ function build_cftsio {
 
 # SVG
 function build_svg {
-  curl -L https://download.gnome.org/sources/librsvg/2.40/librsvg-${SVG_VERSION}.tar.xz -o librsvg.tar.xz
-  tar -xvf librsvg.tar.xz
+  curl -L https://download.gnome.org/sources/librsvg/2.40/librsvg-${SVG_VERSION}.tar.xz -o librsvg-${SVG_VERSION}.tar.xz
+  tar -xvf librsvg-${SVG_VERSION}.tar.xz
   cd librsvg-${SVG_VERSION}
   ./configure --prefix $OUT_PATH --enable-shared --disable-static \
   --disable-dependency-tracking --disable-introspection --disable-tools
@@ -271,8 +271,8 @@ function build_svg {
 
 # GIF
 function build_gif {
-  curl -L http://downloads.sourceforge.net/project/giflib/giflib-${GIF_VERSION}.tar.bz2 -o giflib.tar.bz2
-  tar -xvf giflib.tar.bz2
+  curl -L http://downloads.sourceforge.net/project/giflib/giflib-${GIF_VERSION}.tar.bz2 -o giflib-${GIF_VERSION}.tar.bz2
+  tar -xvf giflib-${GIF_VERSION}.tar.bz2
   cd giflib-$GIF_VERSION
   ./configure --prefix $OUT_PATH --enable-shared --disable-static \
   --disable-dependency-tracking
@@ -285,9 +285,9 @@ function build_gif {
 ###############
 function build_lcms2 {
     # Download lcms dependency
-    curl -L http://downloads.sourceforge.net/project/lcms/lcms/2.6/lcms2-2.6.tar.gz -o lcms.tar.gz
+    curl -L http://downloads.sourceforge.net/project/lcms/lcms/2.6/lcms2-2.6.tar.gz -o lcms2-2.6.tar.gz
     # Unzip
-    tar -xvf lcms.tar.gz
+    tar -xvf lcms2-2.6.tar.gz
     # Get into lcms folder
     cd lcms2-2.6
     # Configure build
@@ -303,9 +303,9 @@ function build_lcms2 {
 ###############
 function build_vips {
     # Download vips runtime
-    curl -L https://github.com/jcupitt/libvips/releases/download/v$VIPS_VERSION/vips-$VIPS_VERSION.tar.gz -o vips.tar.gz
+    curl -L https://github.com/jcupitt/libvips/releases/download/v$VIPS_VERSION/vips-$VIPS_VERSION.tar.gz -o vips-$VIPS_VERSION.tar.gz
     # Unzip
-    tar -xvf vips.tar.gz
+    tar -xvf vips-$VIPS_VERSION.tar.gz
     # Get into vips folder
     cd vips-$VIPS_VERSION
     # Configure build and output everything in /tmp/vips
