@@ -79,4 +79,4 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/vendor/vips/lib"
 #export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:${PKG_CONFIG_PATH//$BUILD_DIR//app}"
 #export CPPPATH="\$CPPPATH:${CPPPATH//$BUILD_DIR//app}"
 #export CPATH="\$CPATH:${CPATH//$BUILD_DIR//app}"
-#EOF
+EOF
