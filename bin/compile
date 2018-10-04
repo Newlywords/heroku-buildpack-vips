@@ -55,16 +55,16 @@ echo "Tweaking glib include paths" | arrow
 export CPPPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPPPATH"
 export CPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPATH"
 
-#echo "Configuring build environment" | arrow
+echo "Configuring build environment" | arrow
 
-#cat <<EOF > export
-#export PATH="$PATH:\$PATH"
-#export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$LD_LIBRARY_PATH"
-#export LIBRARY_PATH="\$LIBRARY_PATH:$LIBRARY_PATH"
-#export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:$PKG_CONFIG_PATH"
-#export CPPPATH="\$CPPPATH:$CPPPATH"
-#export CPATH="\$CPATH:$CPATH"
-#EOF
+cat <<EOF > export
+export PATH="$PATH:\$PATH"
+export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$LD_LIBRARY_PATH"
+export LIBRARY_PATH="\$LIBRARY_PATH:$LIBRARY_PATH"
+export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:$PKG_CONFIG_PATH"
+export CPPPATH="\$CPPPATH:$CPPPATH"
+export CPATH="\$CPATH:$CPATH"
+EOF
 
 echo "Building runtime environment" | arrow
 mkdir -p $BUILD_DIR/.profile.d
