@@ -52,8 +52,8 @@ vendor "wget https://www.m-kast.com/files/libvips-8.7.0-ubuntu18.04.tgz" "$BUILD
 
 echo "Tweaking glib include paths" | arrow
 
-#export CPPPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPPPATH"
-#export CPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPATH"
+export CPPPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPPPATH"
+export CPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPATH"
 
 #echo "Configuring build environment" | arrow
 
