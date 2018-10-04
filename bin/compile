@@ -39,11 +39,11 @@ function vendor() {
   fi
 
   # standard paths
-  export CPPPATH="$path/include:$CPPPATH"
-  export CPATH="$path/include:$CPATH"
-  export LIBRARY_PATH="$path/lib:$LIBRARY_PATH"
+  #export CPPPATH="$path/include:$CPPPATH"
+  #export CPATH="$path/include:$CPATH"
+  #export LIBRARY_PATH="$path/lib:$LIBRARY_PATH"
 
-  export LD_LIBRARY_PATH="$path/lib:$LD_LIBRARY_PATH"
+  #export LD_LIBRARY_PATH="$path/lib:$LD_LIBRARY_PATH"
 }
 
 echo "Vendoring binaries" | arrow
@@ -52,28 +52,31 @@ vendor "wget https://www.m-kast.com/files/libvips-8.7.0-ubuntu18.04.tgz" "$BUILD
 
 echo "Tweaking glib include paths" | arrow
 
-export CPPPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPPPATH"
-export CPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPATH"
+#export CPPPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPPPATH"
+#export CPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPATH"
 
-echo "Configuring build environment" | arrow
+#echo "Configuring build environment" | arrow
 
-cat <<EOF > export
-export PATH="$PATH:\$PATH"
-export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$LD_LIBRARY_PATH"
-export LIBRARY_PATH="\$LIBRARY_PATH:$LIBRARY_PATH"
-export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:$PKG_CONFIG_PATH"
-export CPPPATH="\$CPPPATH:$CPPPATH"
-export CPATH="\$CPATH:$CPATH"
-EOF
+#cat <<EOF > export
+#export PATH="$PATH:\$PATH"
+#export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$LD_LIBRARY_PATH"
+#export LIBRARY_PATH="\$LIBRARY_PATH:$LIBRARY_PATH"
+#export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:$PKG_CONFIG_PATH"
+#export CPPPATH="\$CPPPATH:$CPPPATH"
+#export CPATH="\$CPATH:$CPATH"
+#EOF
 
 echo "Building runtime environment" | arrow
 mkdir -p $BUILD_DIR/.profile.d
 
 cat <<EOF > $BUILD_DIR/.profile.d/$BUILDPACK_NAME.sh
-export PATH="${PATH//$BUILD_DIR//app}:\$PATH"
-export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:${LD_LIBRARY_PATH//$BUILD_DIR//app}"
-export LIBRARY_PATH="\$LIBRARY_PATH:${LIBRARY_PATH//$BUILD_DIR//app}"
-export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:${PKG_CONFIG_PATH//$BUILD_DIR//app}"
-export CPPPATH="\$CPPPATH:${CPPPATH//$BUILD_DIR//app}"
-export CPATH="\$CPATH:${CPATH//$BUILD_DIR//app}"
-EOF
+export PATH="$PATH:$HOME/vendor/vips/bin"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/vendor/vips/lib/pkgconfig"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/vendor/vips/lib"
+#export PATH="${PATH//$BUILD_DIR//app}:\$PATH"
+#export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:${LD_LIBRARY_PATH//$BUILD_DIR//app}"
+#export LIBRARY_PATH="\$LIBRARY_PATH:${LIBRARY_PATH//$BUILD_DIR//app}"
+#export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:${PKG_CONFIG_PATH//$BUILD_DIR//app}"
+#export CPPPATH="\$CPPPATH:${CPPPATH//$BUILD_DIR//app}"
+#export CPATH="\$CPATH:${CPATH//$BUILD_DIR//app}"
+#EOF
