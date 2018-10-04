@@ -48,7 +48,7 @@ function vendor() {
 
 echo "Vendoring binaries" | arrow
 
-vendor "wget https://github.com/wwarne/heroku-buildpack-vips/raw/master/libvips.0.5.0.tar.gz" "$BUILD_DIR/vendor/vips" # FIXME: unharcode version
+vendor "wget https://raw.githubusercontent.com/wwarne/heroku-buildpack-vips/master/libvips.0.5.0.tar.gz" "$BUILD_DIR/vendor/vips" # FIXME: unharcode version
 
 echo "Tweaking glib include paths" | arrow
 
