@@ -48,7 +48,7 @@ function vendor() {
 
 echo "Vendoring binaries" | arrow
 
-vendor "wget https://s3-us-west-2.amazonaws.com/cdn.thegrid.io/caliper/libvips/libvips-build-0.0.2.tar.gz" "$BUILD_DIR/vendor/vips" # FIXME: unharcode version
+vendor "wget https://www.m-kast.com/files/libvips-8.7.0-ubuntu18.04.tgz" "$BUILD_DIR/vendor/vips" # FIXME: unharcode version
 
 echo "Tweaking glib include paths" | arrow
 
