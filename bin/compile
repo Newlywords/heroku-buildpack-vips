@@ -41,9 +41,9 @@ function vendor() {
   # standard paths
 #   export CPPPATH="$path/include:$CPPPATH"
 #   export CPATH="$path/include:$CPATH"
-#   export LIBRARY_PATH="$path/lib:$LIBRARY_PATH"
+  export LIBRARY_PATH="$path/lib:$LIBRARY_PATH"
 
-#   export LD_LIBRARY_PATH="$path/lib:$LD_LIBRARY_PATH"
+  export LD_LIBRARY_PATH="$path/lib:$LD_LIBRARY_PATH"
 }
 
 echo "Vendoring binaries" | arrow
