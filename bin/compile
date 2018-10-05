@@ -39,21 +39,21 @@ function vendor() {
   fi
 
   # standard paths
-  export CPPPATH="$path/include:$CPPPATH"
-  export CPATH="$path/include:$CPATH"
-  export LIBRARY_PATH="$path/lib:$LIBRARY_PATH"
+#   export CPPPATH="$path/include:$CPPPATH"
+#   export CPATH="$path/include:$CPATH"
+#   export LIBRARY_PATH="$path/lib:$LIBRARY_PATH"
 
-  export LD_LIBRARY_PATH="$path/lib:$LD_LIBRARY_PATH"
+#   export LD_LIBRARY_PATH="$path/lib:$LD_LIBRARY_PATH"
 }
 
 echo "Vendoring binaries" | arrow
 
 vendor "wget https://www.m-kast.com/files/libvips-8.7.0-ubuntu18.04.tgz" "$BUILD_DIR/vendor/vips" # FIXME: unharcode version
 
-echo "Tweaking glib include paths" | arrow
+# echo "Tweaking glib include paths" | arrow
 
-export CPPPATH="$CPPPATH:$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include"
-export CPATH="$CPATH:$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include"
+# export CPPPATH="$CPPPATH:$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include"
+# export CPATH="$CPATH:$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include"
 
 echo "Configuring build environment" | arrow
 
