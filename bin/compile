@@ -3,7 +3,8 @@
 
 set -e
 
-version=8.6.2
+VIPS_VERSION=8.7.1
+HEROKU_STACK=heroku18
 
 BUILD_DIR=$1
 CACHE_DIR=$2
@@ -48,17 +49,12 @@ function vendor() {
 
 echo "Vendoring binaries" | arrow
 
-vendor "wget https://www.m-kast.com/files/libvips-8.7.0-ubuntu18.04.tgz" "$BUILD_DIR/vendor/vips" # FIXME: unharcode version
-
-echo "Tweaking glib include paths" | arrow
-
-export CPPPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPPPATH"
-export CPATH="$BUILD_DIR/vendor/vips/include/glib-2.0:$BUILD_DIR/vendor/vips/lib/glib-2.0/include:$CPATH"
+vendor "https://bc-heroku-buildpacks.s3.amazonaws.com/vips/libvips-$VIPS_VERSION-$HEROKU_STACK.tar.gz" "$BUILD_DIR/vendor/vips"
 
 echo "Configuring build environment" | arrow
 
 cat <<EOF > export
-export PATH="$PATH:\$PATH"
+export PATH="/app/bin:$PATH:\$PATH"
 export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$LD_LIBRARY_PATH"
 export LIBRARY_PATH="\$LIBRARY_PATH:$LIBRARY_PATH"
 export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:$PKG_CONFIG_PATH"
@@ -70,7 +66,7 @@ echo "Building runtime environment" | arrow
 mkdir -p $BUILD_DIR/.profile.d
 
 cat <<EOF > $BUILD_DIR/.profile.d/$BUILDPACK_NAME.sh
-export PATH="${PATH//$BUILD_DIR//app}:\$PATH"
+export PATH="/app/bin:${PATH//$BUILD_DIR//app}:\$PATH"
 export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:${LD_LIBRARY_PATH//$BUILD_DIR//app}"
 export LIBRARY_PATH="\$LIBRARY_PATH:${LIBRARY_PATH//$BUILD_DIR//app}"
 export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:${PKG_CONFIG_PATH//$BUILD_DIR//app}"

@@ -1,24 +1,39 @@
 heroku-buildpack-vips
 =====================
 
+Important notes:
+
+This buildpack started out as one of the many that are out there, and ended up
+being completely different. The build script uses docker and also includes pdf
+support via poppler. In order to use this buildpack, you must install these packages in your heroku application:
+
+- libglib2.0-0
+- libglib2.0-dev
+- libpoppler-glib8
+
+The easiest way to do this is using the heroku apt buildpack.
+
+This buildpack was put together with the help of John Cupitt, the creator of
+libvips. He was invaluable in my efforts to get a working libvips installation
+with pdf support on heroku. Thank you John!
+
+---
+
 Heroku buildpack with [libvips](https://github.com/jcupitt/libvips) installed.
 
-Current vips version is 8.0.0 with webp 0.4.0, libtiff 4.0.3, orc 0.4.18, fftw 3.3.4, libgsf 1.14.30, imagemagick 6.9.0 and lcms 2.6
-
-## About libtiff use
-
-We removed `libtiff.*` from the vips bundle because it's version (5.0) was conflicting with opencv (4.0). Removing `libtiff.*` made it use the user default's libtiff (5.0). Symbol names on the original vips bundle `libtiff.so` are wrong, they have versions appended, which causes the conflict.
-
-The new bundle is available [here](https://s3-us-west-2.amazonaws.com/cdn.thegrid.io/caliper/libvips/libvips-build-0.0.2.tar.gz) and is currently used by us.
 
 ## Usage
 
-Point the `BUILDPACK_URL` config or add to your `.buildpacks` this:
+Add this buildpack to your app:
 
 ```
-https://github.com/wwarne/heroku-buildpack-vips
+https://github.com/brandoncc/heroku-buildpack-vips
 ```
 
 ## Build script
 
-[This](./build.sh) is the script used to build vips on `heroku run bash`.
+[This](./build.sh) is the script used to build vips using docker.
+
+After building a tar file, it will be copied to the `build` directory. You need
+to put that somewhere and update [bin/compile](./bin/compile) with the correct
+URL.
