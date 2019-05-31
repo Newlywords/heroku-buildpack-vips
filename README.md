@@ -34,6 +34,8 @@ https://github.com/brandoncc/heroku-buildpack-vips
 
 [This](./build.sh) is the script used to build vips using docker.
 
-After building a tar file, it will be copied to the `build` directory. You need
-to put that somewhere and update [bin/compile](./bin/compile) with the correct
-URL.
+```sh
+VIPS_VERSION=x.y.z ./build.sh
+```
+
+After building a tar file, it will be copied to the `build` directory. Then you should commit this changes to git.
