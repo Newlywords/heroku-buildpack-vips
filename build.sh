@@ -3,7 +3,7 @@
 # set -x
 set -e
 
-docker build --no-cache -t libvips-heroku18 container
+docker build --no-cache --build-arg VIPS_VERSION=${VIPS_VERSION} -t libvips-heroku18 container
 
 mkdir -p build
 
