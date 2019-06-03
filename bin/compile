@@ -3,12 +3,11 @@
 
 set -e
 
-VIPS_VERSION=8.7.1
-HEROKU_STACK=heroku18
-
 BUILD_DIR=$1
 CACHE_DIR=$2
 BUILDPACK_NAME=vips
+BIN_DIR=$(cd "$(dirname "$0")"; pwd) # absolute path
+ROOT_DIR=$(dirname "$BIN_DIR")
 
 function indent() {
   c='s/^/       /'
@@ -28,7 +27,7 @@ function vendor() {
 
   echo "Fetching $binary" | indent
   mkdir -p $path
-  curl $binary -s -o - | tar xz -C $path -f -
+  tar -xz -f $binary -C $path
 
   if [ -d "$path/bin" ]; then
     export PATH=$path/bin:$PATH
@@ -49,7 +48,7 @@ function vendor() {
 
 echo "Vendoring binaries" | arrow
 
-vendor "https://bc-heroku-buildpacks.s3.amazonaws.com/vips/libvips-$VIPS_VERSION-$HEROKU_STACK.tar.gz" "$BUILD_DIR/vendor/vips"
+vendor "${ROOT_DIR}/build/libvips.tar.gz" "$BUILD_DIR/vendor/vips"
 
 echo "Configuring build environment" | arrow
 

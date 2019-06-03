@@ -1,5 +1,7 @@
 FROM heroku/heroku:18
 
+ARG VIPS_VERSION
+
 # useful build tools ... we need gtk-doc to build orc, since they don't ship
 # pre-baked tarballs
 RUN apt-get update && apt-get install -y \
@@ -12,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 	unzip \
 	wget \
 	git \
-	pkg-config 
+	pkg-config
 
 # heroku:18 includes some libraries, like tiff and jpeg, as part of the
 # run-time platform, and we want to use those libs if we can
@@ -67,7 +69,6 @@ RUN cd /usr/src \
 	&& make \
 	&& make install
 
-ARG VIPS_VERSION=8.7.1
 ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
 
 RUN cd /usr/src \
@@ -81,15 +82,15 @@ RUN cd /usr/src \
 
 # clean the build area ready for packaging
 RUN cd /usr/src/vips \
-	&& rm bin/gif* bin/orc* bin/gsf* bin/batch_* bin/vips-8.7 \
+	&& rm bin/gif* bin/orc* bin/gsf* bin/batch_* bin/vips-* \
 	&& rm bin/vipsprofile bin/light_correct bin/shrink_width \
 	&& strip lib/*.a lib/lib*.so* \
 	&& rm -rf share/gtk-doc \
 	&& rm -rf share/man \
-	&& rm -rf share/thumbnailers 
+	&& rm -rf share/thumbnailers
 
 RUN cd /usr/src/vips \
   && rm -rf build \
   && mkdir build \
   && tar czf \
-    /usr/src/vips/build/libvips-$(./bin/vips --version | awk '{split($0,a,"-"); print a[2]}')-heroku18.tar.gz bin include lib
+    /usr/src/vips/build/libvips.tar.gz bin include lib
