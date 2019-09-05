@@ -33,7 +33,6 @@ RUN apt-get update && apt-get install -y \
 	liblcms2-dev \
 	libxml2-dev \
 	libfftw3-dev \
-  libheif-dev \
   libpoppler-glib-dev
 
 ARG GIFLIB_VERSION=5.1.4
