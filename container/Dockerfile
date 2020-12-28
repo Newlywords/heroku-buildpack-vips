@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
 	build-essential \
 	autoconf \
 	automake \
+	cmake \
 	libtool \
 	intltool \
 	gtk-doc-tools \
@@ -36,8 +37,7 @@ RUN apt-get update && apt-get install -y \
 	libxml2-dev \
 	libfftw3-dev \
   libpoppler-glib-dev \
-  libwebp-dev \
-  libde265-dev
+  libwebp-dev
 
 ARG GIFLIB_VERSION=5.1.4
 ARG GIFLIB_URL=http://downloads.sourceforge.net/project/giflib
@@ -72,6 +72,22 @@ RUN cd /usr/src \
 	&& ./configure --prefix=/usr/src/vips --disable-gtk-doc \
 	&& make \
 	&& make install
+
+ARG DE256_VERSION=1.0.8
+ARG DE256_URL=https://github.com/strukturag/libde265/releases/download
+
+RUN cd /usr/src \
+  && wget ${DE256_URL}/v${DE256_VERSION}/libde265-${DE256_VERSION}.tar.gz \
+	&& tar xf libde265-${DE256_VERSION}.tar.gz \
+	&& cd libde265-${DE256_VERSION} \
+	&& mkdir -p build \
+	&& mkdir -p /usr/src/libde265 \
+	&& cd build \
+	&& cmake .. \
+	&& make \
+	&& DESTDIR=/usr/src/libde265 make install \
+  && cp -R /usr/src/libde265/usr/local/* /usr/src/vips/
+
 
 ARG HEIF_VERSION=1.10.0
 ARG HEIF_URL=https://github.com/strukturag/libheif/releases/download
