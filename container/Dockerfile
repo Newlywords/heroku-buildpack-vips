@@ -73,21 +73,17 @@ RUN cd /usr/src \
 	&& make \
 	&& make install
 
-ARG DE256_VERSION=1.0.8
-ARG DE256_URL=https://github.com/strukturag/libde265/releases/download
+ARG DE265_VERSION=1.0.8
+ARG DE265_URL=https://github.com/strukturag/libde265/releases/download
 
 RUN cd /usr/src \
-  && wget ${DE256_URL}/v${DE256_VERSION}/libde265-${DE256_VERSION}.tar.gz \
-	&& tar xf libde265-${DE256_VERSION}.tar.gz \
-	&& cd libde265-${DE256_VERSION} \
-	&& mkdir -p build \
-	&& mkdir -p /usr/src/libde265 \
-	&& cd build \
-	&& cmake .. \
-	&& make \
-	&& DESTDIR=/usr/src/libde265 make install \
-  && cp -R /usr/src/libde265/usr/local/* /usr/src/vips/
-
+  && wget ${DE265_URL}/v${DE265_VERSION}/libde265-${DE265_VERSION}.tar.gz \
+  && tar xf libde265-${DE265_VERSION}.tar.gz \
+  && cd libde265-${DE265_VERSION} \
+  && ./autogen.sh \
+  && ./configure --prefix=/usr/src/vips \
+  && make \
+  && make install
 
 ARG HEIF_VERSION=1.10.0
 ARG HEIF_URL=https://github.com/strukturag/libheif/releases/download
