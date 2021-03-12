@@ -1,22 +1,21 @@
 FROM heroku/heroku:18
 
-ARG VIPS_VERSION
-
 ENV DEBIAN_FRONTEND noninteractive
 
 # useful build tools ... we need gtk-doc to build orc, since they don't ship
 # pre-baked tarballs
 RUN apt-get update && apt-get install -y \
-	build-essential \
-	autoconf \
-	automake \
-	libtool \
-	intltool \
-	gtk-doc-tools \
-	unzip \
-	wget \
-	git \
-	pkg-config
+  build-essential \
+  autoconf \
+  automake \
+  cmake \
+  libtool \
+  intltool \
+  gtk-doc-tools \
+  unzip \
+  wget \
+  git \
+  pkg-config
 
 # heroku:18 includes some libraries, like tiff and jpeg, as part of the
 # run-time platform, and we want to use those libs if we can
@@ -25,74 +24,101 @@ RUN apt-get update && apt-get install -y \
 #
 # libgsf needs libxml2
 RUN apt-get update && apt-get install -y \
-	glib-2.0-dev \
-	libexpat-dev \
-	librsvg2-dev \
-	libpng-dev \
-	libjpeg-dev \
-	libtiff5-dev \
-	libexif-dev \
-	liblcms2-dev \
-	libxml2-dev \
-	libfftw3-dev \
-  libpoppler-glib-dev
+  glib-2.0-dev \
+  libexpat-dev \
+  librsvg2-dev \
+  libpng-dev \
+  libjpeg-dev \
+  libtiff5-dev \
+  libexif-dev \
+  liblcms2-dev \
+  libxml2-dev \
+  libfftw3-dev \
+  libpoppler-glib-dev \
+  libwebp-dev
+
+# build our stack to this prefix
+ARG VIPS_PREFIX=/usr/local/vips
+
+# ld and pkg-config need to pick up packages from this area
+ENV LD_LIBRARY_PATH=$VIPS_PREFIX/lib
+ENV PKG_CONFIG_PATH=$VIPS_PREFIX/lib/pkgconfig
+
+# build area
+WORKDIR /usr/local/src
 
 ARG GIFLIB_VERSION=5.1.4
 ARG GIFLIB_URL=http://downloads.sourceforge.net/project/giflib
 
-RUN cd /usr/src \
-	&& wget ${GIFLIB_URL}/giflib-$GIFLIB_VERSION.tar.bz2 \
-	&& tar xf giflib-${GIFLIB_VERSION}.tar.bz2 \
-	&& cd giflib-${GIFLIB_VERSION} \
-	&& ./configure --prefix=/usr/src/vips \
-	&& make \
-	&& make install
+RUN wget ${GIFLIB_URL}/giflib-$GIFLIB_VERSION.tar.bz2 \
+  && tar xf giflib-${GIFLIB_VERSION}.tar.bz2 \
+  && cd giflib-${GIFLIB_VERSION} \
+  && ./configure --prefix=$VIPS_PREFIX \
+  && make V=0 \
+  && make install
 
 ARG ORC_VERSION=0.4.28
 ARG ORC_URL=https://gstreamer.freedesktop.org/src/orc
 
-RUN cd /usr/src \
-	&& wget ${ORC_URL}/orc-$ORC_VERSION.tar.xz \
-	&& tar xf orc-${ORC_VERSION}.tar.xz \
-	&& cd orc-${ORC_VERSION} \
-	&& ./autogen.sh \
-	&& ./configure --prefix=/usr/src/vips --disable-gtk-doc \
-	&& make \
-	&& make install
+RUN wget ${ORC_URL}/orc-$ORC_VERSION.tar.xz \
+  && tar xf orc-${ORC_VERSION}.tar.xz \
+  && cd orc-${ORC_VERSION} \
+  && ./autogen.sh \
+  && ./configure --prefix=$VIPS_PREFIX --disable-gtk-doc \
+  && make V=0 \
+  && make install
 
 ARG GSF_VERSION=1.14.42
 ARG GSF_URL=http://ftp.gnome.org/pub/GNOME/sources/libgsf
 
-RUN cd /usr/src \
-	&& wget ${GSF_URL}/${GSF_VERSION%.*}/libgsf-$GSF_VERSION.tar.xz \
-	&& tar xf libgsf-${GSF_VERSION}.tar.xz \
-	&& cd libgsf-${GSF_VERSION} \
-	&& ./configure --prefix=/usr/src/vips --disable-gtk-doc \
-	&& make \
-	&& make install
+RUN wget ${GSF_URL}/${GSF_VERSION%.*}/libgsf-$GSF_VERSION.tar.xz \
+  && tar xf libgsf-${GSF_VERSION}.tar.xz \
+  && cd libgsf-${GSF_VERSION} \
+  && ./configure --prefix=$VIPS_PREFIX --disable-gtk-doc \
+  && make V=0 \
+  && make install
 
+ARG DE265_VERSION=1.0.8
+ARG DE265_URL=https://github.com/strukturag/libde265/releases/download
+
+RUN wget ${DE265_URL}/v${DE265_VERSION}/libde265-${DE265_VERSION}.tar.gz \
+  && tar xf libde265-${DE265_VERSION}.tar.gz \
+  && cd libde265-${DE265_VERSION} \
+  && ./autogen.sh \
+  && ./configure --prefix=$VIPS_PREFIX \
+  && make V=0 \
+  && make install
+
+ARG HEIF_VERSION=1.10.0
+ARG HEIF_URL=https://github.com/strukturag/libheif/releases/download
+
+RUN wget ${HEIF_URL}/v${HEIF_VERSION}/libheif-${HEIF_VERSION}.tar.gz \
+  && tar xf libheif-${HEIF_VERSION}.tar.gz \
+  && cd libheif-${HEIF_VERSION} \
+  && ./configure --prefix=$VIPS_PREFIX \
+  && make V=0 \
+  && make install
+
+ARG VIPS_VERSION=8.10.5
 ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
 
-RUN cd /usr/src \
-	&& wget ${VIPS_URL}/v${VIPS_VERSION}/vips-${VIPS_VERSION}.tar.gz \
-	&& tar xzf vips-${VIPS_VERSION}.tar.gz \
-	&& cd vips-${VIPS_VERSION} \
-	&& export PKG_CONFIG_PATH=/usr/src/vips/lib/pkgconfig \
-	&& ./configure --prefix=/usr/src/vips --disable-gtk-doc \
-	&& make \
-	&& make install
+RUN wget ${VIPS_URL}/v${VIPS_VERSION}/vips-${VIPS_VERSION}.tar.gz \
+  && tar xzf vips-${VIPS_VERSION}.tar.gz \
+  && cd vips-${VIPS_VERSION} \
+  && ./configure --prefix=$VIPS_PREFIX \
+  && make V=0 \
+  && make install
 
 # clean the build area ready for packaging
-RUN cd /usr/src/vips \
-	&& rm bin/gif* bin/orc* bin/gsf* bin/batch_* bin/vips-* \
-	&& rm bin/vipsprofile bin/light_correct bin/shrink_width \
-	&& strip lib/*.a lib/lib*.so* \
-	&& rm -rf share/gtk-doc \
-	&& rm -rf share/man \
-	&& rm -rf share/thumbnailers
+RUN cd $VIPS_PREFIX \
+  && rm bin/gif* bin/orc* bin/gsf* bin/batch_* bin/vips-* \
+  && rm bin/vipsprofile bin/light_correct bin/shrink_width \
+  && strip lib/*.a lib/lib*.so* \
+  && rm -rf share/gtk-doc \
+  && rm -rf share/man \
+  && rm -rf share/thumbnailers
 
-RUN cd /usr/src/vips \
+RUN cd $VIPS_PREFIX \
   && rm -rf build \
   && mkdir build \
-  && tar czf \
-    /usr/src/vips/build/libvips.tar.gz bin include lib
+  && tar czf build/libvips.tar.gz bin include lib
