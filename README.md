@@ -43,53 +43,42 @@ After building a tar file, it will be copied to the `build` directory. Then you 
 ## Build configuration
 
 ```
-* build options
-native win32:                           no
-native OS X:                            no
-open files in binary mode:              no
-enable debug:                           no
-enable deprecated library components:   yes
-enable docs with gtkdoc:                no
-gobject introspection:                  no
-enable radiance support:                yes
-enable analyze support:                 yes
-enable PPM support:                     yes
-
-* optional dependencies
-use fftw3 for FFT:                      yes
-Magick package:                         none
-Magick API version:                     none
-load with libMagick:                    no
-save with libMagick:                    no
-accelerate loops with orc:              yes
-  (requires orc-0.4.11 or later)
-ICC profile support with lcms:          yes (lcms2)
-file import with niftiio:               no
-file import with libheif:               yes
-file import with OpenEXR:               no
-file import with OpenSlide:             no
-  (requires openslide-3.3.0 or later)
-file import with matio:                 no
-PDF import with PDFium:                 no
-PDF import with poppler-glib:           yes
-  (requires poppler-glib 0.16.0 or later)
-SVG import with librsvg-2.0:            yes
-  (requires librsvg-2.0 2.34.0 or later)
-zlib:                                   yes
-file import with cfitsio:               no
-file import/export with libwebp:        yes
-  (requires libwebp, libwebpmux, libwebpdemux 0.6.0 or later)
-text rendering with pangoft2:           no
-file import/export with libspng:        no
-  (requires libspng-0.6 or later)
-file import/export with libpng:         yes (pkg-config libpng >= 1.2.9)
-  (requires libpng-1.2.9 or later)
-support 8bpp PNG quantisation:          no
-  (requires libimagequant)
-file import/export with libtiff:        yes (pkg-config libtiff-4)
-file import/export with giflib:         yes (found by search)
-file import/export with libjpeg:        yes (pkg-config)
-image pyramid export:                   yes
-  (requires libgsf-1 1.14.26 or later)
+~ $ vips --vips-config
+native win32: no
+native OS X: no
+open files in binary mode: no
+enable debug: no
+enable deprecated library components: yes
+enable docs with gtkdoc: no
+gobject introspection: no
+enable radiance support: yes
+enable analyze support: yes
+enable PPM support: yes
+use fftw3 for FFT: yes
+Magick package: none
+Magick API version: none
+load with libMagick: no
+save with libMagick: no
+accelerate loops with orc: yes
+ICC profile support with lcms: yes (lcms2)
+file import with niftiio: no
+file import with libheif: yes
+file import with OpenEXR: no
+file import with OpenSlide: no
+file import with matio: no
+PDF import with PDFium: no
+PDF import with poppler-glib: yes
+SVG import with librsvg-2.0: yes
+zlib: yes
+file import with cfitsio: no
+file import/export with libwebp: yes
+text rendering with pangoft2: no
+file import/export with libspng: no
+file import/export with libpng: yes (pkg-config libpng >= 1.2.9)
+support 8bpp PNG quantisation: no
+file import/export with libtiff: yes (pkg-config libtiff-4)
+file import/export with giflib: yes (found by search)
+file import/export with libjpeg: yes (pkg-config)
+image pyramid export: yes
 use libexif to load/save JPEG metadata: yes
 ```
