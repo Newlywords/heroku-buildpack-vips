@@ -1,4 +1,4 @@
-heroku-buildpack-vips
+heroku-buildpack-vips (heroku-18 version, (heroku-20 version [available here](https://github.com/brandoncc/heroku-buildpack-vips-h20))
 =====================
 
 Important notes:
