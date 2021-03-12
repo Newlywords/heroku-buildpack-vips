@@ -1,6 +1,8 @@
 heroku-buildpack-vips (heroku-18 version, (heroku-20 version [available here](https://github.com/brandoncc/heroku-buildpack-vips-h20))
 =====================
 
+A VIPS buildpack for the heroku-18 stack.
+
 Important notes:
 
 This buildpack started out as one of the many that are out there, and ended up
