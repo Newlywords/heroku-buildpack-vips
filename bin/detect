@@ -1,4 +1,12 @@
 #! /bin/bash
 
-# Always use when requested
-echo "vips" && exit 0
+SUPPORTED_STACKS=(heroku-16 heroku-18 heroku-20)
+
+for stack_option in "${SUPPORTED_STACKS[@]}"; do
+  if [[ $STACK = $stack_option ]]; then
+    echo "vips ($stack_option stack)"
+    exit 0
+  fi
+done
+
+echo "vips buildpack doesn't support the $STACK stack" && exit 1

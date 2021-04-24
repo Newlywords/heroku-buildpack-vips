@@ -48,7 +48,7 @@ function vendor() {
 
 echo "Vendoring binaries" | arrow
 
-vendor "${ROOT_DIR}/build/libvips.tar.gz" "$BUILD_DIR/vendor/vips"
+vendor "${ROOT_DIR}/build/${STACK}.tar.gz" "$BUILD_DIR/vendor/vips"
 
 echo "Configuring build environment" | arrow
 
