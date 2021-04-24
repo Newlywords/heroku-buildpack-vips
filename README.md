@@ -53,6 +53,9 @@ After building a tar file, it will be copied to the `build` directory. Then you 
 ## Build configuration (heroku-18)
 
 ```
+~ $ vips --vips-version
+libvips 8.10.6-Tue Mar 23 20:52:58 UTC 2021
+
 ~ $ vips --vips-config
 native win32: no
 native OS X: no
@@ -96,6 +99,9 @@ use libexif to load/save JPEG metadata: yes
 ## Build configuration (heroku-20)
 
 ```
+~ $ vips --vips-version
+libvips 8.10.6-Tue Mar 23 20:52:58 UTC 2021
+
 ~ $ vips --vips-config
 native win32: no
 native OS X: no
