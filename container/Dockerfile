@@ -1,4 +1,5 @@
-FROM heroku/heroku:18
+ARG STACK_VERSION
+FROM heroku/heroku:$STACK_VERSION
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -17,7 +18,7 @@ RUN apt-get update && apt-get install -y \
   git \
   pkg-config
 
-# heroku:18 includes some libraries, like tiff and jpeg, as part of the
+# heroku buildpacks include some libraries, like tiff and jpeg, as part of the
 # run-time platform, and we want to use those libs if we can
 #
 # see https://devcenter.heroku.com/articles/stack-packages
@@ -118,7 +119,9 @@ RUN cd $VIPS_PREFIX \
   && rm -rf share/man \
   && rm -rf share/thumbnailers
 
+# I don't know why, but I have to bring this in again. Maybe "FROM" resets it?
+ARG STACK_VERSION
 RUN cd $VIPS_PREFIX \
   && rm -rf build \
   && mkdir build \
-  && tar czf build/libvips.tar.gz bin include lib
+  && tar czf "build/heroku-${STACK_VERSION}.tar.gz" bin include lib
