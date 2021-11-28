@@ -20,6 +20,10 @@ support via poppler. In order to use this buildpack, you must install these pack
 - libglib2.0-0
 - libglib2.0-dev
 - libpoppler-glib8
+- libpoppler-glib-dev
+- libheif-dev
+- libfftw3-dev
+- libwebp-dev
 
 The easiest way to do this is using the heroku apt buildpack.
 
