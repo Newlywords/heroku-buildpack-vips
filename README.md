@@ -85,15 +85,15 @@ WebP load/save with libwebp: no
 PDF load with PDFium:  no
 PDF load with poppler-glib: yes (dynamic module: no)
 SVG load with librsvg-2.0: yes
-EXR load with OpenEXR: no
+EXR load with OpenEXR: yes
 OpenSlide load: no (dynamic module: no)
 Matlab load with matio: no
 NIfTI load/save with niftiio: no
 FITS load/save with cfitsio: no
-Magick package: none (dynamic module: no)
-Magick API version: none
-load with libMagickCore: no
-save with libMagickCore: no
+Magick package: MagickCore (dynamic module: no)
+Magick API version: magick6
+load with libMagickCore: yes
+save with libMagickCore: yes
 ```
 
 ## Build configuration (heroku-18)
@@ -131,15 +131,15 @@ WebP load/save with libwebp: yes
 PDF load with PDFium:  no
 PDF load with poppler-glib: yes (dynamic module: no)
 SVG load with librsvg-2.0: yes
-EXR load with OpenEXR: no
+EXR load with OpenEXR: yes
 OpenSlide load: no (dynamic module: no)
 Matlab load with matio: no
 NIfTI load/save with niftiio: no
 FITS load/save with cfitsio: no
-Magick package: none (dynamic module: no)
-Magick API version: none
-load with libMagickCore: no
-save with libMagickCore: no
+Magick package: MagickCore (dynamic module: no)
+Magick API version: magick6
+load with libMagickCore: yes
+save with libMagickCore: yes
 ```
 
 ## Build configuration (heroku-20)
@@ -177,13 +177,13 @@ WebP load/save with libwebp: yes
 PDF load with PDFium:  no
 PDF load with poppler-glib: yes (dynamic module: no)
 SVG load with librsvg-2.0: yes
-EXR load with OpenEXR: no
+EXR load with OpenEXR: yes
 OpenSlide load: no (dynamic module: no)
 Matlab load with matio: no
 NIfTI load/save with niftiio: no
 FITS load/save with cfitsio: no
-Magick package: none (dynamic module: no)
-Magick API version: none
-load with libMagickCore: no
-save with libMagickCore: no
+Magick package: MagickCore (dynamic module: no)
+Magick API version: magick6
+load with libMagickCore: yes
+save with libMagickCore: yes
 ```
