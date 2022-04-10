@@ -54,7 +54,7 @@ After building a tar file, it will be copied to the `build` directory. Then you 
 
 ```
 ~ $ vips --vips-version
-libvips 8.12.1-Wed Nov 24 15:41:04 UTC 2021
+vips-8.12.2-Tue Jan 25 09:34:32 UTC 2022
 
 ~ $ vips --vips-config
 enable debug: no
@@ -70,6 +70,7 @@ RAD load/save: yes
 Analyze7 load/save: yes
 PPM load/save: yes
 GIF load:  yes
+GIF save with cgif: no
 EXIF metadata support with libexif: yes
 JPEG load/save with libjpeg: yes (pkg-config)
 JXL load/save with libjxl: no (dynamic module: no)
@@ -84,23 +85,22 @@ WebP load/save with libwebp: no
 PDF load with PDFium:  no
 PDF load with poppler-glib: yes (dynamic module: no)
 SVG load with librsvg-2.0: yes
-EXR load with OpenEXR: no
+EXR load with OpenEXR: yes
 OpenSlide load: no (dynamic module: no)
 Matlab load with matio: no
 NIfTI load/save with niftiio: no
 FITS load/save with cfitsio: no
-GIF save with cgif: no
-Magick package: none (dynamic module: no)
-Magick API version: none
-load with libMagickCore: no
-save with libMagickCore: no
+Magick package: MagickCore (dynamic module: no)
+Magick API version: magick6
+load with libMagickCore: yes
+save with libMagickCore: yes
 ```
 
 ## Build configuration (heroku-18)
 
 ```
 ~ $ vips --vips-version
-libvips 8.12.1-Wed Nov 24 15:41:04 UTC 2021
+vips-8.12.2-Tue Jan 25 09:34:32 UTC 2022
 
 ~ $ vips --vips-config
 enable debug: no
@@ -116,6 +116,7 @@ RAD load/save: yes
 Analyze7 load/save: yes
 PPM load/save: yes
 GIF load:  yes
+GIF save with cgif: no
 EXIF metadata support with libexif: yes
 JPEG load/save with libjpeg: yes (pkg-config)
 JXL load/save with libjxl: no (dynamic module: no)
@@ -130,23 +131,22 @@ WebP load/save with libwebp: yes
 PDF load with PDFium:  no
 PDF load with poppler-glib: yes (dynamic module: no)
 SVG load with librsvg-2.0: yes
-EXR load with OpenEXR: no
+EXR load with OpenEXR: yes
 OpenSlide load: no (dynamic module: no)
 Matlab load with matio: no
 NIfTI load/save with niftiio: no
 FITS load/save with cfitsio: no
-GIF save with cgif: no
-Magick package: none (dynamic module: no)
-Magick API version: none
-load with libMagickCore: no
-save with libMagickCore: no
+Magick package: MagickCore (dynamic module: no)
+Magick API version: magick6
+load with libMagickCore: yes
+save with libMagickCore: yes
 ```
 
 ## Build configuration (heroku-20)
 
 ```
 ~ $ vips --vips-version
-libvips 8.12.1-Wed Nov 24 15:41:04 UTC 2021
+vips-8.12.2-Tue Jan 25 09:34:32 UTC 2022
 
 ~ $ vips --vips-config
 enable debug: no
@@ -162,6 +162,7 @@ RAD load/save: yes
 Analyze7 load/save: yes
 PPM load/save: yes
 GIF load:  yes
+GIF save with cgif: no
 EXIF metadata support with libexif: yes
 JPEG load/save with libjpeg: yes (pkg-config)
 JXL load/save with libjxl: no (dynamic module: no)
@@ -176,14 +177,13 @@ WebP load/save with libwebp: yes
 PDF load with PDFium:  no
 PDF load with poppler-glib: yes (dynamic module: no)
 SVG load with librsvg-2.0: yes
-EXR load with OpenEXR: no
+EXR load with OpenEXR: yes
 OpenSlide load: no (dynamic module: no)
 Matlab load with matio: no
 NIfTI load/save with niftiio: no
 FITS load/save with cfitsio: no
-GIF save with cgif: no
-Magick package: none (dynamic module: no)
-Magick API version: none
-load with libMagickCore: no
-save with libMagickCore: no
+Magick package: MagickCore (dynamic module: no)
+Magick API version: magick6
+load with libMagickCore: yes
+save with libMagickCore: yes
 ```
