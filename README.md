@@ -34,11 +34,38 @@ Heroku buildpack with [libvips](https://github.com/jcupitt/libvips) installed.
 
 ## Usage
 
-Add this buildpack to your app:
+To use this on Heroku it must be installed with the required dependencies in the required order. We must first add the [apt buildpack](https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-apt) so that it is executed first. We can do that with the following Heroku CLI command:
 
 ```
-https://github.com/brandoncc/heroku-buildpack-vips
+heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-apt
 ```
+
+Once added, you'll need to make sure that you create a file called `Aptfile` in the root of your project. The contents of this file need to be:
+
+```
+libglib2.0-0
+libglib2.0-dev
+libpoppler-glib8
+```
+
+These are dependencies required for this buildpack.
+
+We can then add this buildpack by running:
+
+```
+heroku buildpacks:add --index 2 https://github.com/brandoncc/heroku-buildpack-vips
+```
+
+After running this command you should see the output similar to:
+
+```
+Buildpack added. Next release on amazing-earthfest will use:
+  1. heroku-community/apt
+  2. https://github.com/brandoncc/heroku-buildpack-vips
+  3. heroku/ruby
+```
+
+The order is important as the `apt` buildpack and its dependencies must be installed before this buildpack. Finally the buildpack specifc to your application (in this case its the ruby buildpack) can be installed.
 
 ## Build script
 
