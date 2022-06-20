@@ -16,6 +16,7 @@ for stack_version in "${STACK_VERSIONS[@]}"; do
   image_name=libvips-heroku-$stack_version:$VIPS_VERSION
 
   docker build \
+    --platform x86_64 \
     --build-arg VIPS_VERSION=${VIPS_VERSION} \
     --build-arg STACK_VERSION=${stack_version}\
     -t $image_name \
