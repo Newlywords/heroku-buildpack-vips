@@ -9,8 +9,8 @@ use fftw3 for FFT: yes
 accelerate loops with orc: yes
 ICC profile support with lcms: yes (lcms2)
 zlib: yes
-text rendering with pangocairo: no
-font file support with fontconfig: 
+text rendering with pangocairo: yes
+font file support with fontconfig: yes
 RAD load/save: yes
 Analyze7 load/save: yes
 PPM load/save: yes
