@@ -23,6 +23,8 @@ support via poppler. In order to use this buildpack, you must install these pack
 - libglib2.0-0
 - libglib2.0-dev
 - libpoppler-glib8
+
+Additionally, if you are planning to use [sharp](https://github.com/lovell/sharp), you may also need the following packages:
 - libpoppler-glib-dev
 - libheif-dev
 - libfftw3-dev
