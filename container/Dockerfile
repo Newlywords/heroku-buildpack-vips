@@ -36,7 +36,9 @@ RUN apt-get update && apt-get install -y \
   libxml2-dev \
   libfftw3-dev \
   libpoppler-glib-dev \
-  libwebp-dev
+  libwebp-dev \
+  libmagickcore-dev \
+  libpango1.0-dev
 
 # build our stack to this prefix
 ARG VIPS_PREFIX=/usr/local/vips
@@ -119,9 +121,17 @@ RUN cd $VIPS_PREFIX \
   && rm -rf share/man \
   && rm -rf share/thumbnailers
 
-# I don't know why, but I have to bring this in again. Maybe "FROM" resets it?
 ARG STACK_VERSION
 RUN cd $VIPS_PREFIX \
   && rm -rf build \
   && mkdir build \
   && tar czf "build/heroku-${STACK_VERSION}.tar.gz" bin include lib
+
+# Store configuration for easy viewing in the repo
+ARG STACK_VERSION
+RUN cd $VIPS_PREFIX \
+  && echo "$ vips --vips-version" > "build/heroku-${STACK_VERSION}.config.log" \
+  && ./bin/vips --vips-version >> "build/heroku-${STACK_VERSION}.config.log" \
+  && echo "" >> "build/heroku-${STACK_VERSION}.config.log" \
+  && echo "$ vips --vips-config" >> "build/heroku-${STACK_VERSION}.config.log" \
+  && ./bin/vips --vips-config >> "build/heroku-${STACK_VERSION}.config.log"
