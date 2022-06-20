@@ -37,7 +37,8 @@ RUN apt-get update && apt-get install -y \
   libfftw3-dev \
   libpoppler-glib-dev \
   libwebp-dev \
-  libmagickcore-dev
+  libmagickcore-dev \
+  libpango1.0-dev
 
 # build our stack to this prefix
 ARG VIPS_PREFIX=/usr/local/vips
