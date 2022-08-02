@@ -43,6 +43,10 @@ RUN apt-get update && apt-get install -y \
   python-gi-dev \
   libgirepository1.0-dev
 
+# Used by the libvips test suite
+RUN apt-get update && apt-get install -y \
+  bc
+
 # build our stack to this prefix
 ARG VIPS_PREFIX=/usr/local/vips
 
