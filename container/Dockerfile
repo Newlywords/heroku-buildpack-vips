@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
   libtool \
   intltool \
   gtk-doc-tools \
+  meson \
   unzip \
   wget \
   git \
@@ -38,7 +39,9 @@ RUN apt-get update && apt-get install -y \
   libpoppler-glib-dev \
   libwebp-dev \
   libmagickcore-dev \
-  libpango1.0-dev
+  libpango1.0-dev \
+  python-gi-dev \
+  libgirepository1.0-dev
 
 # build our stack to this prefix
 ARG VIPS_PREFIX=/usr/local/vips
@@ -108,9 +111,11 @@ ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
 RUN wget ${VIPS_URL}/v${VIPS_VERSION}/vips-${VIPS_VERSION}.tar.gz \
   && tar xzf vips-${VIPS_VERSION}.tar.gz \
   && cd vips-${VIPS_VERSION} \
-  && ./configure --prefix=$VIPS_PREFIX \
-  && make V=0 \
-  && make install
+  && meson setup build-dir --buildtype=release --prefix=$VIPS_PREFIX \
+  && cd build-dir \
+  && meson compile \
+  && meson test \
+  && meson install
 
 # clean the build area ready for packaging
 RUN cd $VIPS_PREFIX \
