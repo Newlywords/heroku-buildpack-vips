@@ -30,7 +30,7 @@ Additionally, if you are planning to use [sharp](https://github.com/lovell/sharp
 - libfftw3-dev
 - libwebp-dev
 
-The easiest way to do this is using the heroku apt buildpack.
+The easiest way to do this is using the [heroku apt buildpack](https://github.com/heroku/heroku-buildpack-apt).
 
 This buildpack was put together with the help of John Cupitt, the creator of
 libvips. He was invaluable in my efforts to get a working libvips installation
