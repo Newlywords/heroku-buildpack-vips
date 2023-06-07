@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
   libtool \
   intltool \
   gtk-doc-tools \
+  meson \
   unzip \
   wget \
   git \
@@ -38,7 +39,13 @@ RUN apt-get update && apt-get install -y \
   libpoppler-glib-dev \
   libwebp-dev \
   libmagickcore-dev \
-  libpango1.0-dev
+  libpango1.0-dev \
+  python-gi-dev \
+  libgirepository1.0-dev
+
+# Used by the libvips test suite
+RUN apt-get update && apt-get install -y \
+  bc
 
 # build our stack to this prefix
 ARG VIPS_PREFIX=/usr/local/vips
@@ -102,15 +109,17 @@ RUN wget ${HEIF_URL}/v${HEIF_VERSION}/libheif-${HEIF_VERSION}.tar.gz \
   && make V=0 \
   && make install
 
-ARG VIPS_VERSION=8.10.5
+ARG VIPS_VERSION=8.13.0
 ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
 
 RUN wget ${VIPS_URL}/v${VIPS_VERSION}/vips-${VIPS_VERSION}.tar.gz \
   && tar xzf vips-${VIPS_VERSION}.tar.gz \
   && cd vips-${VIPS_VERSION} \
-  && ./configure --prefix=$VIPS_PREFIX \
-  && make V=0 \
-  && make install
+  && meson setup build-dir --buildtype=release --prefix=$VIPS_PREFIX \
+  && cd build-dir \
+  && meson compile \
+  && meson test \
+  && meson install
 
 # clean the build area ready for packaging
 RUN cd $VIPS_PREFIX \
