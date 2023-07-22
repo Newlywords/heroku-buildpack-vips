@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
   libtool \
   intltool \
   gtk-doc-tools \
-  meson \
+  python3 \
+  python3-pip \
   unzip \
   wget \
   git \
@@ -46,6 +47,10 @@ RUN apt-get update && apt-get install -y \
 # Used by the libvips test suite
 RUN apt-get update && apt-get install -y \
   bc
+
+# Install meson from source because the apt versions are too old to compile these packages
+RUN pip3 install ninja
+RUN pip3 install meson
 
 # build our stack to this prefix
 ARG VIPS_PREFIX=/usr/local/vips
@@ -110,11 +115,11 @@ RUN wget ${HEIF_URL}/v${HEIF_VERSION}/libheif-${HEIF_VERSION}.tar.gz \
   && make install
 
 ARG VIPS_VERSION=8.13.0
-ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
+ARG VIPS_URL=https://github.com/libvips/libvips/archive/refs/tags
 
-RUN wget ${VIPS_URL}/v${VIPS_VERSION}/vips-${VIPS_VERSION}.tar.gz \
-  && tar xzf vips-${VIPS_VERSION}.tar.gz \
-  && cd vips-${VIPS_VERSION} \
+RUN wget ${VIPS_URL}/v${VIPS_VERSION}/v${VIPS_VERSION}.tar.gz \
+  && tar xzf v${VIPS_VERSION}.tar.gz \
+  && cd libvips-${VIPS_VERSION} \
   && meson setup build-dir --buildtype=release --prefix=$VIPS_PREFIX \
   && cd build-dir \
   && meson compile \
@@ -123,8 +128,8 @@ RUN wget ${VIPS_URL}/v${VIPS_VERSION}/vips-${VIPS_VERSION}.tar.gz \
 
 # clean the build area ready for packaging
 RUN cd $VIPS_PREFIX \
-  && rm bin/gif* bin/orc* bin/gsf* bin/batch_* bin/vips-* \
-  && rm bin/vipsprofile bin/light_correct bin/shrink_width \
+  && rm -rf bin/gif* bin/orc* bin/gsf* bin/batch_* bin/vips-* \
+  && rm -rf bin/vipsprofile bin/light_correct bin/shrink_width \
   && strip lib/*.a lib/lib*.so* \
   && rm -rf share/gtk-doc \
   && rm -rf share/man \
