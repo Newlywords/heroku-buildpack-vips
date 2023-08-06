@@ -10,7 +10,7 @@ rm -rf ./build/*.tar.gz
 mkdir -p ./build/configurations
 rm -rf ./build/configurations/*.log
 
-STACK_VERSIONS=(18 20 22)
+STACK_VERSIONS=(20 22)
 
 for stack_version in "${STACK_VERSIONS[@]}"; do
   image_name=libvips-heroku-$stack_version:$VIPS_VERSION
