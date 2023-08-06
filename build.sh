@@ -17,11 +17,11 @@ for stack_version in "${STACK_VERSIONS[@]}"; do
 
   docker build \
     --build-arg VIPS_VERSION=${VIPS_VERSION} \
-    --build-arg STACK_VERSION=${stack_version}\
+    --build-arg STACK_VERSION=${stack_version} \
     -t $image_name \
     container
 
   mkdir -p build
 
-  docker run --rm -t -v $PWD/build:/build $image_name sh -c 'cp -f /usr/local/vips/build/*.tar.gz /build && cp -f /usr/local/vips/build/*.config.log /build/configurations'
+  docker run --rm -t -v $PWD/build:/build $image_name sh -c 'cp -f /usr/local/build/*.tar.gz /build && cp -f /usr/local/build/*.config.log /build/configurations'
 done
