@@ -10,6 +10,10 @@ included in the Heroku stacks by default.
 There are some known security issues with using outdated versions, see [this issue
 comment](https://github.com/brandoncc/heroku-buildpack-vips/issues/36#issuecomment-1644417628) for more information.
 
+## Important changes
+
+As of August, 2023, this buildpack switched from using poppler as a PDF loader to pdfium.
+
 ## About this buildpack
 
 A VIPS buildpack for the modern Heroku stacks. This stack supports the following
