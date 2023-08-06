@@ -1,41 +1,42 @@
 $ vips --vips-version
-libvips 8.13.0-Thu Jul 21 13:59:28 UTC 2022
+libvips 8.14.3
 
 $ vips --vips-config
-enable debug: no
-enable deprecated library components: yes
-enable modules: no
-use fftw3 for FFT: yes
-accelerate loops with orc: yes
-ICC profile support with lcms: yes (lcms2)
-zlib: yes
-text rendering with pangocairo: yes
-font file support with fontconfig: yes
-RAD load/save: yes
-Analyze7 load/save: yes
-PPM load/save: yes
-GIF load:  yes
-GIF save with cgif: no
-EXIF metadata support with libexif: yes
-JPEG load/save with libjpeg: yes (pkg-config)
-JXL load/save with libjxl: no (dynamic module: no)
-JPEG2000 load/save with libopenjp2: yes
-PNG load with libspng: no
-PNG load/save with libpng: yes (pkg-config libpng >= 1.2.9)
-selected quantisation package: 
-TIFF load/save with libtiff: yes (pkg-config libtiff-4)
-image pyramid save: yes
-HEIC/AVIF load/save with libheif: yes (dynamic module: no)
-WebP load/save with libwebp: yes
-PDF load with PDFium:  no
-PDF load with poppler-glib: yes (dynamic module: no)
-SVG load with librsvg-2.0: yes
-EXR load with OpenEXR: yes
-OpenSlide load: no (dynamic module: no)
-Matlab load with matio: no
-NIfTI load/save with niftiio: no
-FITS load/save with cfitsio: no
-Magick package: MagickCore (dynamic module: no)
+enable debug: false
+enable deprecated: true
+enable modules: true
+enable cplusplus: true
+enable RAD load/save: true
+enable Analyze7 load/save: true
+enable PPM load/save: true
+enable GIF load: true
+use fftw for FFTs: true
+accelerate loops with ORC: true
+ICC profile support with lcms: true
+zlib: true
+text rendering with pangocairo: true
+font file support with fontconfig: true
+EXIF metadata support with libexif: true
+JPEG load/save with libjpeg: true
+JXL load/save with libjxl: false (dynamic module: false)
+JPEG2000 load/save with OpenJPEG: true
+PNG load/save with libspng: true
+PNG load/save with libpng: false
+selected quantisation package: imagequant
+TIFF load/save with libtiff: true
+image pyramid save with libgsf: true
+HEIC/AVIF load/save with libheif: true (dynamic module: true)
+WebP load/save with libwebp: true
+PDF load with PDFium: true
+PDF load with poppler-glib: false (dynamic module: false)
+SVG load with librsvg: true
+EXR load with OpenEXR: true
+OpenSlide load: false (dynamic module: false)
+Matlab load with libmatio: false
+NIfTI load/save with niftiio: false
+FITS load/save with cfitsio: false
+GIF save with cgif: true
+selected Magick package: MagickCore (dynamic module: true)
 Magick API version: magick6
-load with libMagickCore: yes
-save with libMagickCore: yes
+Magick load: true
+Magick save: true
