@@ -1,5 +1,5 @@
 $ vips --vips-version
-libvips 8.14.3
+libvips 8.14.4
 
 $ vips --vips-config
 enable debug: false
