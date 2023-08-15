@@ -2,7 +2,7 @@ $ vips --vips-version
 libvips 8.14.4
 
 $ vips --vips-config
-enable debug: false
+enable debug: true
 enable deprecated: true
 enable modules: true
 enable cplusplus: true
