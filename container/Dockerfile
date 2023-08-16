@@ -161,7 +161,7 @@ ARG VIPS_URL=https://github.com/libvips/libvips/archive/refs/tags
 RUN wget ${VIPS_URL}/v${VIPS_VERSION}/v${VIPS_VERSION}.tar.gz \
   && tar xzf v${VIPS_VERSION}.tar.gz \
   && cd libvips-${VIPS_VERSION} \
-  && meson setup build --buildtype=debug --prefix=$PREFIX --libdir=lib \
+  && meson setup build --buildtype=release --prefix=$PREFIX --libdir=lib \
   && cd build \
   && meson compile \
   && meson test \
