@@ -151,7 +151,7 @@ ARG HEIF_URL=https://github.com/strukturag/libheif/releases/download
 RUN wget ${HEIF_URL}/v${HEIF_VERSION}/libheif-${HEIF_VERSION}.tar.gz \
   && tar xf libheif-${HEIF_VERSION}.tar.gz \
   && cd libheif-${HEIF_VERSION} \
-  && ./configure --prefix=$VIPS_PREFIX \
+  && ./configure --prefix=$PREFIX \
   && make V=0 \
   && make install
 
