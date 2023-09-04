@@ -151,7 +151,7 @@ ARG HEIF_URL=https://github.com/strukturag/libheif/releases/download
 RUN wget ${HEIF_URL}/v${HEIF_VERSION}/libheif-${HEIF_VERSION}.tar.gz \
   && tar xf libheif-${HEIF_VERSION}.tar.gz \
   && cd libheif-${HEIF_VERSION} \
-  && ./configure --prefix=$PREFIX \
+  && ./configure --prefix=$PREFIX --disable-examples --disable-go --disable-gdk-pixbuf \
   && make V=0 \
   && make install
 
