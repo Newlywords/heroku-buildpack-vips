@@ -161,11 +161,17 @@ ARG VIPS_URL=https://github.com/libvips/libvips/archive/refs/tags
 RUN wget ${VIPS_URL}/v${VIPS_VERSION}/v${VIPS_VERSION}.tar.gz \
   && tar xzf v${VIPS_VERSION}.tar.gz \
   && cd libvips-${VIPS_VERSION} \
-  && meson setup build --buildtype=release --prefix=$PREFIX --libdir=lib \
-  && cd build \
-  && meson compile \
-  && meson test \
-  && meson install
+  && meson setup build \
+    --prefix=$PREFIX \
+	  --libdir=lib \
+	  --buildtype=release \
+	  -Dradiance=false \
+	  -Danalyze=false \
+	  -Dmodules=disabled \
+	  -Dintrospection=false \
+	&& cd build \
+	&& meson compile \
+	&& meson install
 
 # clean and package
 ARG STACK_VERSION
