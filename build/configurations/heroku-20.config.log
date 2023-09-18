@@ -4,10 +4,10 @@ libvips 8.14.4
 $ vips --vips-config
 enable debug: false
 enable deprecated: true
-enable modules: true
+enable modules: false
 enable cplusplus: true
-enable RAD load/save: true
-enable Analyze7 load/save: true
+enable RAD load/save: false
+enable Analyze7 load/save: false
 enable PPM load/save: true
 enable GIF load: true
 use fftw for FFTs: true
@@ -25,10 +25,10 @@ PNG load/save with libpng: false
 selected quantisation package: imagequant
 TIFF load/save with libtiff: true
 image pyramid save with libgsf: true
-HEIC/AVIF load/save with libheif: true (dynamic module: true)
+HEIC/AVIF load/save with libheif: true (dynamic module: false)
 WebP load/save with libwebp: true
-PDF load with PDFium: true
-PDF load with poppler-glib: false (dynamic module: false)
+PDF load with PDFium: false
+PDF load with poppler-glib: true (dynamic module: false)
 SVG load with librsvg: true
 EXR load with OpenEXR: true
 OpenSlide load: false (dynamic module: false)
@@ -36,7 +36,7 @@ Matlab load with libmatio: false
 NIfTI load/save with niftiio: false
 FITS load/save with cfitsio: false
 GIF save with cgif: true
-selected Magick package: MagickCore (dynamic module: true)
-Magick API version: magick6
-Magick load: true
-Magick save: true
+selected Magick package: none (dynamic module: false)
+Magick API version: none
+Magick load: false
+Magick save: false

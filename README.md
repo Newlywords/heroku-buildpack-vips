@@ -12,7 +12,16 @@ comment](https://github.com/brandoncc/heroku-buildpack-vips/issues/36#issuecomme
 
 ## Important changes
 
-As of August, 2023, this buildpack switched from using poppler as a PDF loader to pdfium.
+The brief usage of pdfium that started August 2023 ended September 17, 2023. The buildpack is using poppler again due
+to https://github.com/brandoncc/heroku-buildpack-vips/issues/41#issuecomment-1722462354.
+
+As of heroku-20 and heroku-22, the following packages are already installed and don't need to be installed using an
+Aptfile:
+
+- libglib2.0-0
+- libglib2.0-dev
+
+Found out more information like this in [the changelog](CHANGES.md).
 
 ## About this buildpack
 
@@ -32,10 +41,7 @@ Important notes:
 
 This buildpack started out as one of the many that are out there, and ended up
 being completely different. The build script uses docker and also includes pdf
-support via pdfium. In order to use this buildpack, you must install these packages in your heroku application:
-
-- libglib2.0-0
-- libglib2.0-dev
+support via poppler.
 
 Additionally, if you are planning to use [sharp](https://github.com/lovell/sharp), you may also need the following packages:
 - libheif-dev
