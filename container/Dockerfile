@@ -165,10 +165,10 @@ RUN wget ${VIPS_URL}/v${VIPS_VERSION}/v${VIPS_VERSION}.tar.gz \
     --prefix=$PREFIX \
 	  --libdir=lib \
 	  --buildtype=release \
-	  -Dradiance=false \
-	  -Danalyze=false \
-	  -Dmodules=disabled \
-	  -Dintrospection=false \
+	  -Dradiance=false      # obscure file format that nobody will use \
+	  -Danalyze=false       # obscure file format that nobody will use \
+	  -Dmodules=disabled    # modules cause issues with loading heif files in ruby-vips \
+	  -Dintrospection=false # allows omitting gobject-introspection library \
 	&& cd build \
 	&& meson compile \
 	&& meson install
