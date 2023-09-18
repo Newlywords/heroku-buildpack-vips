@@ -3,7 +3,6 @@ FROM heroku/heroku:$STACK_VERSION
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# generic build tools  ... libgsf needs intltool
 RUN apt-get update \
   && apt-get install -y \
     build-essential \
@@ -11,7 +10,6 @@ RUN apt-get update \
     wget \
     python3-pip \
     ninja-build \
-    intltool \
     pkg-config 
 
 RUN pip3 install meson
@@ -38,7 +36,6 @@ RUN apt-get install -y \
   libxml2-dev \
   libfftw3-dev \
   libopenexr-dev \
-  libgirepository1.0-dev \
   libmagickcore-dev \
   libpoppler-glib-dev \
   libimagequant-dev \
@@ -120,7 +117,7 @@ RUN wget ${VIPS_URL}/v${VIPS_VERSION}/v${VIPS_VERSION}.tar.gz \
 # clean and package
 ARG STACK_VERSION
 RUN cd $PREFIX \
-  && rm -rf bin/gif* \
+  && rm -rf bin/vipsprofile \
   && rm -rf lib/*.a lib/*.la lib/python* \
   && strip lib/lib*.so* \
   && rm -rf build \
