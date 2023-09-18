@@ -36,7 +36,7 @@ Matlab load with libmatio: false
 NIfTI load/save with niftiio: false
 FITS load/save with cfitsio: false
 GIF save with cgif: true
-selected Magick package: MagickCore (dynamic module: false)
-Magick API version: magick6
-Magick load: true
-Magick save: true
+selected Magick package: none (dynamic module: false)
+Magick API version: none
+Magick load: false
+Magick save: false
