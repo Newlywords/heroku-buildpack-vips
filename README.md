@@ -12,7 +12,6 @@ comment](https://github.com/brandoncc/heroku-buildpack-vips/issues/36#issuecomme
 
 ## Important changes
 
-
 The brief usage of pdfium that started August 2023 ended September 17, 2023. The buildpack is using poppler again due
 to https://github.com/brandoncc/heroku-buildpack-vips/issues/41#issuecomment-1722462354.
 
@@ -21,6 +20,8 @@ Aptfile:
 
 - libglib2.0-0
 - libglib2.0-dev
+
+Found out more information like this in [the changelog](CHANGES.md).
 
 ## About this buildpack
 
