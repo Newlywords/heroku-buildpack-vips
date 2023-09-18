@@ -39,7 +39,8 @@ RUN apt-get install -y \
   libfftw3-dev \
   libopenexr-dev \
   libgirepository1.0-dev \
-  libmagickcore-dev
+  libmagickcore-dev \
+  libpoppler-glib-dev
 
 WORKDIR /usr/local/src
 
@@ -107,32 +108,6 @@ RUN wget ${SPNG_URL}/v${SPNG_VERSION}.tar.gz \
   && cd build \
   && ninja \
   && ninja install
-
-# the version number is was correct in feb 2022 ... it just needs to be >4200
-# for libvips
-ARG PDFIUM_URL=https://github.com/bblanchon/pdfium-binaries/releases/latest/download
-ARG PDFIUM_VERSION=4901
-
-RUN wget $PDFIUM_URL/pdfium-linux-x64.tgz \
-  && mkdir pdfium \
-  && cd pdfium \
-  && tar xf ../pdfium-linux-x64.tgz \
-  && cp lib/* $PREFIX/lib \
-  && cp -r include/* $PREFIX/include
-
-# make a pdfium.pc file libvips can use
-RUN mkdir -p $PREFIX/lib/pkgconfig \
-  && cd $PREFIX/lib/pkgconfig \
-  && echo "prefix=$PREFIX" >> pdfium.pc \
-  && echo "exec_prefix=\${prefix}" >> pdfium.pc \
-  && echo "libdir=\${exec_prefix}/lib" >> pdfium.pc \
-  && echo "includedir=\${prefix}/include" >> pdfium.pc \
-  && echo "Name: pdfium" >> pdfium.pc \
-  && echo "Description: pdfium" >> pdfium.pc \
-  && echo "Version: $PDFIUM_VERSION" >> pdfium.pc \
-  && echo "Requires: " >> pdfium.pc \
-  && echo "Libs: -L\${libdir} -lpdfium" >> pdfium.pc \
-  && echo "Cflags: -I\${includedir}" >> pdfium.pc
 
 ARG DE265_VERSION=1.0.12
 ARG DE265_URL=https://github.com/strukturag/libde265/releases/download
