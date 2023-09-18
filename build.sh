@@ -19,6 +19,7 @@ for stack_version in "${STACK_VERSIONS[@]}"; do
     --build-arg VIPS_VERSION=${VIPS_VERSION} \
     --build-arg STACK_VERSION=${stack_version} \
     -t $image_name \
+    -f "container/Dockerfile.heroku-$stack_version" \
     container
 
   mkdir -p build

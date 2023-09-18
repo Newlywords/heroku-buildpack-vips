@@ -27,8 +27,8 @@ TIFF load/save with libtiff: true
 image pyramid save with libgsf: true
 HEIC/AVIF load/save with libheif: true (dynamic module: false)
 WebP load/save with libwebp: true
-PDF load with PDFium: true
-PDF load with poppler-glib: false (dynamic module: false)
+PDF load with PDFium: false
+PDF load with poppler-glib: true (dynamic module: false)
 SVG load with librsvg: true
 EXR load with OpenEXR: true
 OpenSlide load: false (dynamic module: false)

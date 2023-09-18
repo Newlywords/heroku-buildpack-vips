@@ -40,7 +40,10 @@ RUN apt-get install -y \
   libopenexr-dev \
   libgirepository1.0-dev \
   libmagickcore-dev \
-  libpoppler-glib-dev
+  libpoppler-glib-dev \
+  libimagequant-dev \
+  liborc-0.4-dev \
+  libgsf-1-dev
 
 WORKDIR /usr/local/src
 
@@ -50,40 +53,6 @@ WORKDIR /usr/local/src
 #  - heroku has a basic dir structure in /usr/local, but no files
 ARG PREFIX=/usr/local
 ENV PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
-
-# the main libimagequant is now gpl3 and we can't use it ... this is a 
-# maintained fork of the old BSD-licensed version
-ARG IMAGEQUANT_VERSION=main
-ARG IMAGEQUANT_URL=https://github.com/lovell/libimagequant
-
-RUN git clone $IMAGEQUANT_URL \
-  && cd libimagequant \
-  && git checkout $IMAGEQUANT_VERSION \
-  && meson build --prefix=${PREFIX} --libdir=lib \
-  && cd build \
-  && ninja \
-  && ninja install
-
-ARG ORC_VERSION=0.4.32
-ARG ORC_URL=https://gstreamer.freedesktop.org/src/orc
-
-RUN wget ${ORC_URL}/orc-$ORC_VERSION.tar.xz \
-  && tar xf orc-${ORC_VERSION}.tar.xz \
-  && cd orc-${ORC_VERSION} \
-  && meson build --prefix=${PREFIX} --libdir=lib \
-  && cd build \
-  && ninja \
-  && ninja install
-
-ARG GSF_VERSION=1.14.48
-ARG GSF_URL=http://ftp.gnome.org/pub/GNOME/sources/libgsf
-
-RUN wget ${GSF_URL}/${GSF_VERSION%.*}/libgsf-$GSF_VERSION.tar.xz \
-  && tar xf libgsf-${GSF_VERSION}.tar.xz \
-  && cd libgsf-${GSF_VERSION} \
-  && ./configure --prefix=$PREFIX --disable-gtk-doc \
-  && make \
-  && make install
 
 # use cgif for GIF write
 ARG CGIF_VERSION=0.2.0
@@ -140,10 +109,10 @@ RUN wget ${VIPS_URL}/v${VIPS_VERSION}/v${VIPS_VERSION}.tar.gz \
     --prefix=$PREFIX \
 	  --libdir=lib \
 	  --buildtype=release \
-	  -Dradiance=false      # obscure file format that nobody will use \
-	  -Danalyze=false       # obscure file format that nobody will use \
-	  -Dmodules=disabled    # modules cause issues with loading heif files in ruby-vips \
-	  -Dintrospection=false # allows omitting gobject-introspection library \
+	  -Dradiance=false \
+	  -Danalyze=false \
+	  -Dmodules=disabled \
+	  -Dintrospection=false \
 	&& cd build \
 	&& meson compile \
 	&& meson install
@@ -151,8 +120,7 @@ RUN wget ${VIPS_URL}/v${VIPS_VERSION}/v${VIPS_VERSION}.tar.gz \
 # clean and package
 ARG STACK_VERSION
 RUN cd $PREFIX \
-  && rm -rf bin/gif* bin/orc* bin/gsf* bin/batch_* bin/vips-* \
-  && rm -rf bin/vipsprofile bin/light_correct bin/shrink_width \
+  && rm -rf bin/gif* \
   && rm -rf lib/*.a lib/*.la lib/python* \
   && strip lib/lib*.so* \
   && rm -rf build \
