@@ -3,6 +3,53 @@
 References to "John" are referring to [John Cupitt](https://github.com/jcupitt), author and maintainer of the libvips
 library.
 
+## September 19, 2023
+
+A [long-time bug](https://github.com/brandoncc/heroku-buildpack-vips/issues/3) in the `bin/compile` script was
+[resolved](https://github.com/brandoncc/heroku-buildpack-vips/commit/80abfc0f5072f1104d5587b7f59ad90686a6b413).
+
+Here is the "before" list of an application's `$PATH`:
+
+- `/app/bin`
+- `/app/vendor/vips/bin`
+- `/app/bin`
+- `/app/vendor/bundle/bin`
+- `/app/vendor/bundle/ruby/3.2.0/bin`
+- `/app/vendor/ruby-3.2.2/bin`
+- `/tmp/codon/tmp/buildpacks/50d5eddf222a9b7326028041d4e6509f915ccf2c/vendor/ruby/heroku-22/bin/`
+- `/usr/local/bin`
+- `/usr/bin`
+- `/bin`
+- `/usr/local/bin`
+- `/usr/bin`
+- `/bin`
+- `/app/bin`
+- `/app/vendor/bundle/bin`
+- `/app/vendor/bundle/ruby/3.2.0/bin`
+- `/usr/local/bin`
+- `/usr/bin`
+- `/bin`
+
+and here is the "after":
+
+- `/app/bin`
+- `/app/vendor/vips/bin`
+- `/app/bin`
+- `/app/vendor/bundle/bin`
+- `/app/vendor/bundle/ruby/3.2.0/bin`
+- `/usr/local/bin`
+- `/usr/bin`
+- `/bin`
+
+The full list of affected environment variables is:
+
+- PATH
+- LD_LIBRARY_PATH
+- LIBRARY_PATH
+- PKG_CONFIG_PATH
+- CPPPATH
+- CPATH
+
 ## September 18, 2023
 
 - Fixed [broken libheif build](https://github.com/brandoncc/heroku-buildpack-vips/issues/41) that was introduced by
