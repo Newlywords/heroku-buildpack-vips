@@ -109,7 +109,7 @@ RUN wget ${VIPS_URL}/v${VIPS_VERSION}/v${VIPS_VERSION}.tar.gz \
 	  -Dradiance=false \
 	  -Danalyze=false \
 	  -Dmodules=disabled \
-	  -Dintrospection=false \
+	  -Dintrospection=disabled \
 	&& cd build \
 	&& meson compile \
 	&& meson install
