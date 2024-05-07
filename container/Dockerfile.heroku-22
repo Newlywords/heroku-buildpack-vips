@@ -40,7 +40,7 @@ RUN apt-get install -y \
   libpoppler-glib-dev \
   libimagequant-dev \
   liborc-0.4-dev \
-  libgsf-1-dev \
+  libarchive-dev \
   libcgif-dev \
   libheif-dev
 
@@ -82,7 +82,7 @@ RUN wget ${VIPS_URL}/v${VIPS_VERSION}/v${VIPS_VERSION}.tar.gz \
     # modules cause issues with loading heif files in ruby-vips \
 	  -Dmodules=disabled \
     # allows omitting gobject-introspection library \
-	  -Dintrospection=false \
+	  -Dintrospection=disabled \
 	&& cd build \
 	&& meson compile \
 	&& meson install
