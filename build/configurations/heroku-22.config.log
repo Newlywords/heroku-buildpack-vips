@@ -1,5 +1,5 @@
 $ vips --vips-version
-libvips 8.14.5
+libvips 8.15.1
 
 $ vips --vips-config
 enable debug: false
@@ -11,6 +11,7 @@ enable Analyze7 load/save: false
 enable PPM load/save: true
 enable GIF load: true
 use fftw for FFTs: true
+SIMD support with highway: false
 accelerate loops with ORC: true
 ICC profile support with lcms: true
 zlib: true
@@ -24,7 +25,7 @@ PNG load/save with libspng: true
 PNG load/save with libpng: false
 selected quantisation package: imagequant
 TIFF load/save with libtiff: true
-image pyramid save with libgsf: true
+image pyramid save with libarchive: false
 HEIC/AVIF load/save with libheif: true (dynamic module: false)
 WebP load/save with libwebp: true
 PDF load with PDFium: false

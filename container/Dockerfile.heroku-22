@@ -82,7 +82,7 @@ RUN wget ${VIPS_URL}/v${VIPS_VERSION}/v${VIPS_VERSION}.tar.gz \
     # modules cause issues with loading heif files in ruby-vips \
 	  -Dmodules=disabled \
     # allows omitting gobject-introspection library \
-	  -Dintrospection=false \
+	  -Dintrospection=disabled \
 	&& cd build \
 	&& meson compile \
 	&& meson install
