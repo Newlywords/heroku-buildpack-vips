@@ -40,7 +40,7 @@ RUN apt-get install -y \
   libpoppler-glib-dev \
   libimagequant-dev \
   liborc-0.4-dev \
-  libgsf-1-dev
+  libarchive-dev
 
 WORKDIR /usr/local/src
 
@@ -109,7 +109,7 @@ RUN wget ${VIPS_URL}/v${VIPS_VERSION}/v${VIPS_VERSION}.tar.gz \
 	  -Dradiance=false \
 	  -Danalyze=false \
 	  -Dmodules=disabled \
-	  -Dintrospection=false \
+	  -Dintrospection=disabled \
 	&& cd build \
 	&& meson compile \
 	&& meson install
