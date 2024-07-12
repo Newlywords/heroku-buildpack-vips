@@ -8,12 +8,12 @@ buildpack. Take a look [here](https://devcenter.heroku.com/articles/stack-packag
 included in the Heroku stacks by default.
 
 There are some known security issues with using outdated versions, see [this issue
-comment](https://github.com/brandoncc/heroku-buildpack-vips/issues/36#issuecomment-1644417628) for more information.
+comment](https://github.com/Newlywords/heroku-buildpack-vips/issues/36#issuecomment-1644417628) for more information.
 
 ## Important changes
 
 The brief usage of pdfium that started August 2023 ended September 17, 2023. The buildpack is using poppler again due
-to https://github.com/brandoncc/heroku-buildpack-vips/issues/41#issuecomment-1722462354.
+to https://github.com/Newlywords/heroku-buildpack-vips/issues/41#issuecomment-1722462354.
 
 As of heroku-20 and heroku-22, the following packages are already installed and don't need to be installed using an
 Aptfile:
@@ -64,7 +64,7 @@ Heroku buildpack with [libvips](https://github.com/libvips/libvips) installed.
 Add this buildpack by running:
 
 ```
-heroku buildpacks:add https://github.com/brandoncc/heroku-buildpack-vips
+heroku buildpacks:add https://github.com/Newlywords/heroku-buildpack-vips
 ```
 
 After running this command you should see the output similar to:
@@ -72,7 +72,7 @@ After running this command you should see the output similar to:
 ```
 Buildpack added. Next release on amazing-earthfest will use:
   1. heroku/ruby
-  2. https://github.com/brandoncc/heroku-buildpack-vips
+  2. https://github.com/Newlywords/heroku-buildpack-vips
 ```
 
 ## Build script
