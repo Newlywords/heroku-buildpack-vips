@@ -1,7 +1,7 @@
 ARG STACK_VERSION
-FROM heroku/heroku:$STACK_VERSION
+FROM heroku/heroku:${STACK_VERSION:-22}
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
   && apt-get install -y \
@@ -10,7 +10,7 @@ RUN apt-get update \
     wget \
     python3-pip \
     ninja-build \
-    pkg-config 
+    pkg-config
 
 RUN pip3 install meson
 
@@ -19,7 +19,7 @@ RUN pip3 install meson
 # see https://devcenter.heroku.com/articles/stack-packages
 #
 # libgsf needs libxml2
-# 
+#
 # this should only pull in header files and should not create any extra run
 # time dependencies
 RUN apt-get install -y \
@@ -46,8 +46,8 @@ RUN apt-get install -y \
 
 WORKDIR /usr/local/src
 
-# build to this prefix 
-#  - heroku has /usr/local/lib on the default ld.so.conf search path, so 
+# build to this prefix
+#  - heroku has /usr/local/lib on the default ld.so.conf search path, so
 #    this is convenient
 #  - heroku has a basic dir structure in /usr/local, but no files
 ARG PREFIX=/usr/local
@@ -82,7 +82,7 @@ RUN wget ${VIPS_URL}/v${VIPS_VERSION}/v${VIPS_VERSION}.tar.gz \
     # modules cause issues with loading heif files in ruby-vips \
 	  -Dmodules=disabled \
     # allows omitting gobject-introspection library \
-	  -Dintrospection=false \
+	  -Dintrospection=disabled \
 	&& cd build \
 	&& meson compile \
 	&& meson install
@@ -112,7 +112,7 @@ RUN cd $PREFIX \
   && vips --vips-config >> "build/heroku-$STACK_VERSION.config.log"
 
 # install and test ruby-vips to confirm we can pick up the libraries
-# correctly 
+# correctly
 # we need ruby-dev to install ruby-ffi
 RUN apt-get install -y ruby-dev
 RUN gem install ruby-vips
