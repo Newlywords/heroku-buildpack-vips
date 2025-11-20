@@ -1,6 +1,8 @@
 ARG STACK_VERSION
 FROM heroku/heroku:$STACK_VERSION
 
+USER root
+
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
@@ -10,9 +12,8 @@ RUN apt-get update \
   wget \
   python3-pip \
   ninja-build \
-  pkg-config
-
-RUN pip3 install meson
+  pkg-config \
+  meson
 
 # use the heroku platform libraries when we can
 #
@@ -26,6 +27,7 @@ RUN apt-get install -y \
   libpango1.0-dev \
   librsvg2-dev \
   libpng-dev \
+  libspng-dev \
   libwebp-dev \
   libjpeg-turbo8-dev \
   libtiff5-dev \
@@ -51,28 +53,20 @@ WORKDIR /usr/local/src
 ARG PREFIX=/usr/local
 ENV PKG_CONFIG_PATH=$PREFIX/lib/pkgconfig
 
-# Build libarchive from source (not pre-installed on heroku-22)
-ARG ARCHIVE_VERSION=3.6.0
-ARG ARCHIVE_URL=https://github.com/libarchive/libarchive/releases/download
+# Build liborc from source (not pre-installed on heroku-24)
+ARG ORC_VERSION=0.4.32
+ARG ORC_URL=https://gstreamer.freedesktop.org/src/orc
 
-RUN wget ${ARCHIVE_URL}/v${ARCHIVE_VERSION}/libarchive-${ARCHIVE_VERSION}.tar.xz \
-  && tar xf libarchive-${ARCHIVE_VERSION}.tar.xz \
-  && cd libarchive-${ARCHIVE_VERSION} \
-  && ./configure --prefix=${PREFIX} --disable-static \
-  && make V=0 \
-  && make install
-
-# use libspng for PNG load and save
-ARG SPNG_VERSION=0.7.2
-ARG SPNG_URL=https://github.com/randy408/libspng/archive/refs/tags
-
-RUN wget ${SPNG_URL}/v${SPNG_VERSION}.tar.gz \
-  && tar xf v${SPNG_VERSION}.tar.gz \
-  && cd libspng-${SPNG_VERSION} \
-  && meson build --prefix=${PREFIX} --libdir=lib \
-  && cd build \
-  && ninja \
-  && ninja install
+RUN wget ${ORC_URL}/orc-${ORC_VERSION}.tar.xz \
+  && tar xf orc-${ORC_VERSION}.tar.xz \
+  && cd orc-${ORC_VERSION} \
+  && meson setup builddir \
+  --prefix=${PREFIX} \
+  -Dlibdir=lib \
+  -Dlibexecdir=lib \
+  --default-library=shared \
+  && ninja -C builddir \
+  && ninja -C builddir install
 
 ARG VIPS_VERSION=8.17.3
 ARG VIPS_URL=https://github.com/libvips/libvips/archive/refs/tags

@@ -1,0 +1,35 @@
+# Test Dockerfile
+#
+# Validates that the tarball contains all necessary runtime dependencies.
+# This Dockerfile simulates how the buildpack works in production on Heroku.
+#
+# If this Dockerfile builds successfully, the buildpack should work when deployed
+# on that stack to Heroku. If it fails to build, the buildpack will NOT work
+# correctly on Heroku - likely `require 'vips'` would fail with missing library errors.
+#
+# Usage: docker build --build-arg STACK_VERSION=22 --build-arg TARBALL_PATH=build/heroku-22.tar.gz -f Dockerfile.test .
+
+ARG STACK_VERSION
+FROM heroku/heroku:$STACK_VERSION
+
+# heroku-24 runs as non-root by default, need root for setup
+USER root
+
+ARG TARBALL_PATH
+
+# Copy the tarball from the build context
+COPY ${TARBALL_PATH} /tmp/vips.tar.gz
+
+# Vendor it like bin/compile does
+RUN mkdir -p /app/vendor/vips \
+  && tar -xz -f /tmp/vips.tar.gz -C /app/vendor/vips
+
+# Set up environment like .profile.d/vips.sh does
+ENV PATH="/app/vendor/vips/bin:$PATH"
+ENV LD_LIBRARY_PATH="/app/vendor/vips/lib:$LD_LIBRARY_PATH"
+
+# Install ruby-vips and test
+RUN apt-get update \
+  && apt-get install -y ruby-dev \
+  && gem install ruby-vips \
+  && ruby -e 'require "vips"; puts "ruby-vips: libvips #{Vips::LIBRARY_VERSION}"'
